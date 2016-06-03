@@ -49,7 +49,7 @@ connnection.query(select);
 ```
     
 ####Get query result
-Result is query result interface. QueryVO has result object and result object can check success.
+Result object is query result interface. QueryVO has result object and result object can check success.
 ```java
 team.balam.util.sqlite.connection.vo.Result result = select.getResult();
 
