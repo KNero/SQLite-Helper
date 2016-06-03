@@ -18,7 +18,7 @@ Connection connnection = PoolManager.getInstance().getConnection("Test");
 ###QueryVO
 QueryVO is interface for execute query.
 ```java
-QueryVO insertVo = QueryVoFactory.createInsert();
+team.balam.util.sqlite.connection.vo.QueryVO insertVo = QueryVoFactory.createInsert();
 ```
 ```java
 QueryVO selectVo = QueryVoFactory.createSelect();
