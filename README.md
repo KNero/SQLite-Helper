@@ -1,5 +1,5 @@
 # SQLite-Helper
-SQLite Single Thread Connection Pool
+SQLite Single Thread And Single Connection Pool
 
 ###Create or load DB File
     DatabaseLoader.load("Test", "./test.db");
