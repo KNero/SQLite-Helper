@@ -44,3 +44,8 @@ if(result.isSuccess())
 	}
 }
 </code></pre>
+Update and delete result can get count.
+<pre><code>int count = result.getResultCount();</code></pre>
+You can get exception when fail to execute query 
+<pre><code>String errorMsg = result.getErrorMessage();
+Exception excep = result.getException();</code></pre>
