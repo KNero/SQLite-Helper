@@ -29,7 +29,7 @@ select.setParam(new Object[]{"1111"});</code></pre>
     connnection.query(select);
     
 ####Get query result
-Result is query result interface. QueryVO has result object and result object can checking success.
+Result is query result interface. QueryVO has result object and result object can check success.
 <pre><code>team.balam.util.sqlite.connection.vo.Result result = select.getResult();
 
 if(result.isSuccess())
@@ -44,8 +44,23 @@ if(result.isSuccess())
 	}
 }
 </code></pre>
+And Result can convert to list. List contents format is Map<String, String>(key is column name(lowercase), value is column value).
+<pre><code>List<HashMap<String, String>> list = result.getSelectResult();
+			
+for(HashMap<String, String> m : list)
+{
+	System.out.println(m.get("data1"));
+	System.out.println(m.get("data2"));
+	System.out.println(m.get("data3"));
+	System.out.println();
+}
+</code></pre>
+
 Update and delete result can get count.
 <pre><code>int count = result.getResultCount();</code></pre>
 You can get exception when fail to execute query 
 <pre><code>String errorMsg = result.getErrorMessage();
 Exception excep = result.getException();</code></pre>
+
+####Result object must call close()
+<pre><code>result.close();</code></pre>
