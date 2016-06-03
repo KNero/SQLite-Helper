@@ -2,8 +2,10 @@
 SQLite Single Thread And Single Connection Pool
 
 ###Create or load DB File
+You can load many database.
 ```java
-DatabaseLoader.load("Test", "./test.db");
+DatabaseLoader.load("Test1", "./test1.db");
+DatabaseLoader.load("Test1", "./test2.db");
 ```
 * param1 : database name
 * param2 : database file name
@@ -12,7 +14,7 @@ DatabaseLoader.load("Test", "./test.db");
 ```java
 import team.balam.util.sqlite.connection.pool.Connection
     
-Connection connnection = PoolManager.getInstance().getConnection("Test");
+Connection connnection = PoolManager.getInstance().getConnection("Test1");
 ```
 
 ###QueryVO
@@ -89,4 +91,9 @@ Exception excep = result.getException();
 ####Result object must call close()
 ```java
 result.close();
+```
+####Stop connection pool
+Don't stop all thread when you not call destroyPool().
+```java
+PoolManager.getInstance().destroyPool();
 ```
