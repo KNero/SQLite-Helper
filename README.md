@@ -15,9 +15,9 @@ SQLite Single Thread And Single Connection Pool
 QueryVO is interface for execute query.
 <pre><code>QueryVO insertVo = QueryVoFactory.createInsert();</code></pre>
 <pre><code>QueryVO selectVo = QueryVoFactory.createSelect();</code></pre>
-QueryVO updateVo = QueryVoFactory.createUpdate();
-QueryVO deleteVo = QueryVoFactory.createDelete();
-QueryVO executeVo = QueryVoFactory.createExecute();
+<pre><code>QueryVO updateVo = QueryVoFactory.createUpdate();</code></pre>
+<pre><code>QueryVO deleteVo = QueryVoFactory.createDelete();</code></pre>
+<pre><code>QueryVO executeVo = QueryVoFactory.createExecute();</code></pre>
 
 ####Make QueryVo
 User QueryVO.setQuery(String) and QueryVO.setParam(Object[]) for execute query.
