@@ -9,7 +9,7 @@ SQLite Single Thread And Single Connection Pool
 ###Get database connection
     import team.balam.util.sqlite.connection.pool.Connection
     
-    Connection con = PoolManager.getInstance().getConnection("Test");
+    Connection connnection = PoolManager.getInstance().getConnection("Test");
 
 ###QueryVO
 QueryVO is interface for execute query.
@@ -24,3 +24,11 @@ User QueryVO.setQuery(String) and QueryVO.setParam(Object[]) for execute query.
 <pre><code>QueryVO select = QueryVoFactory.createSelect();
 select.setQuery("SELECT * FROM TEST WHERE DATA1=?");
 select.setParam(new Object[]{"1111"});</code></pre>
+
+###Execute query
+    connnection.query(select);
+    
+####Get query result
+Result is query result interface. QueryVO has result object and result object can checking success.
+<pre><code>
+</code></pre>
