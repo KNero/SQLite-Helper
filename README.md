@@ -30,7 +30,7 @@ select.setParam(new Object[]{"1111"});</code></pre>
     
 ####Get query result
 Result is query result interface. QueryVO has result object and result object can checking success.
-<pre><code>team.balam.util.sqlite.connection.vo.Result result = vo1.getResult();
+<pre><code>team.balam.util.sqlite.connection.vo.Result result = select.getResult();
 
 if(result.isSuccess())
 {
