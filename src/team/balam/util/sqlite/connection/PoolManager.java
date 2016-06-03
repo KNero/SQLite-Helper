@@ -36,7 +36,7 @@ public class PoolManager
 		return m_connectionPool.get( _dbName );
 	}
 	
-	public void destoryPool() throws Exception
+	public void destroyPool() throws Exception
 	{
 		m_connectionPool.destory();
 	}
