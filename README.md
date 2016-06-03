@@ -39,7 +39,7 @@ User QueryVO.setQuery(String) and QueryVO.setParam(Object[]) for execute query.
 QueryVO select = QueryVoFactory.createSelect();
 select.setQuery("SELECT * FROM TEST WHERE DATA1=?");
 select.setParam(new Object[]{"1111"});
-```java
+```
 
 ###Execute query
 ```java
