@@ -58,8 +58,8 @@ if(result.isSuccess())
     {
         System.out.println(rs.getString(1));
         System.out.println(rs.getString(2));
-	System.out.println(rs.getString(3));
-	System.out.println();
+		System.out.println(rs.getString(3));
+		System.out.println();
 	}
 }
 ```
