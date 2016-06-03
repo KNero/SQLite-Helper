@@ -19,7 +19,7 @@ QueryVO is interface for execute query.
 <pre><code>QueryVO deleteVo = QueryVoFactory.createDelete();</code></pre>
 <pre><code>QueryVO executeVo = QueryVoFactory.createExecute();</code></pre>
 
-####Make QueryVo
+####Make QueryVO
 User QueryVO.setQuery(String) and QueryVO.setParam(Object[]) for execute query.
 <pre><code>QueryVO select = QueryVoFactory.createSelect();
 select.setQuery("SELECT * FROM TEST WHERE DATA1=?");
