@@ -18,4 +18,9 @@ QueryVO selectVo = QueryVoFactory.createSelect();
 QueryVO updateVo = QueryVoFactory.createUpdate();
 QueryVO deleteVo = QueryVoFactory.createDelete();
 QueryVO executeVo = QueryVoFactory.createExecute();</code></pre>
-    
+
+####Make QueryVo
+User QueryVO.setQuery(String) and QueryVO.setParam(Object[]) for execute query.
+<pre><code>QueryVO select = QueryVoFactory.createSelect();
+select.setQuery("SELECT * FROM TEST WHERE DATA1=?");
+select.setParam(new Object[]{"1111"});</code></pre>
