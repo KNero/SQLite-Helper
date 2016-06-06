@@ -7,38 +7,38 @@ import java.util.concurrent.TimeUnit;
 
 public class QueryVOImpl implements QueryVO
 {
-	private byte m_mode;
-	private String m_query;
+	private byte mode;
+	private String query;
 	private List<Object[]> paramList;
 	private Object[] param;
 	
-	private BlockingQueue<Result> m_resultQueue;
-	private Result m_result;
+	private BlockingQueue<Result> resultQueue;
+	private Result result;
 	
 	public static int queryTimeout = 10000;
 	
 	public QueryVOImpl( byte _mode )
 	{
-		m_mode = _mode;
-		m_resultQueue = new LinkedBlockingQueue<Result>();
+		mode = _mode;
+		resultQueue = new LinkedBlockingQueue<Result>();
 	}
 	
 	@Override
 	public byte getMode()
 	{
-		return m_mode;
+		return mode;
 	}
 	
 	@Override
 	public String getQuery() 
 	{
-		return m_query;
+		return query;
 	}
 
 	@Override
 	public void setQuery( String _query ) 
 	{
-		this.m_query = _query;
+		this.query = _query;
 	}
 
 	@Override
@@ -68,16 +68,16 @@ public class QueryVOImpl implements QueryVO
 	@Override
 	public Result getResult() throws InterruptedException 
 	{
-		if( m_result == null )
+		if( result == null )
 		{
-			m_result = m_resultQueue.poll( queryTimeout, TimeUnit.MILLISECONDS );
+			result = resultQueue.poll( queryTimeout, TimeUnit.MILLISECONDS );
 		}
 		
-		return m_result;
+		return result;
 	}
 
 	public void setResult( Result _result ) 
 	{
-		this.m_resultQueue.add( _result );
+		this.resultQueue.add( _result );
 	}
 }

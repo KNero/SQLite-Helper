@@ -10,12 +10,12 @@ import java.util.List;
 public class QueryResult implements Result
 {
 	private SelectResultInfo selectResult;
-	private int m_count;
+	private int count;
 	
 	private boolean isCloseException;
-	private boolean m_isSuccess;
-	private String m_errorMessage;
-	private Exception m_exception;
+	private boolean isSuccess;
+	private String errorMessage;
+	private Exception exception;
 	
 	public void setSelectResult(Statement _statement, PreparedStatement _preparedStatement, ResultSet _resultSet)
 	{
@@ -37,13 +37,13 @@ public class QueryResult implements Result
 	
 	public void setResultCount( int _count )
 	{
-		m_count = _count;
+		count = _count;
 	}
 
 	@Override
 	public int getResultCount() 
 	{
-		return m_count;
+		return count;
 	}
 	
 	public void onCloseException()
@@ -59,35 +59,35 @@ public class QueryResult implements Result
 
 	public void onSuccess()
 	{
-		m_isSuccess = true;
+		isSuccess = true;
 	}
 	
 	@Override
 	public boolean isSuccess() 
 	{
-		return m_isSuccess;
+		return isSuccess;
 	}
 	
 	public void setErrorMessage( String _msg )
 	{
-		m_errorMessage = _msg;
+		errorMessage = _msg;
 	}
 
 	@Override
 	public String getErrorMessage() 
 	{
-		return m_errorMessage;
+		return errorMessage;
 	}
 	
 	public void setException( Exception _exception ) 
 	{
-		m_exception = _exception;
+		exception = _exception;
 	}
 
 	@Override
 	public Exception getException() 
 	{
-		return m_exception;
+		return exception;
 	}
 
 	@Override

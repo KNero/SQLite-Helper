@@ -1,8 +1,6 @@
 package team.balam.util.sqlite.connection.executor;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import team.balam.util.sqlite.connection.vo.QueryVO;
@@ -10,80 +8,58 @@ import team.balam.util.sqlite.connection.vo.QueryVOImpl;
 
 public class QueryExecutor implements Executor
 {
-	private Connection m_dbConnection;
-	private ExecutorWorker m_worker;
+	private Connection dbConnection;
+	private ExecutorWorker worker;
 	
-	private ConcurrentLinkedQueue<QueryVOImpl> m_otherList;
-	private ConcurrentLinkedQueue<QueryVOImpl> m_selectList;
+	private ConcurrentLinkedQueue<QueryVOImpl> otherList;
+	private ConcurrentLinkedQueue<QueryVOImpl> selectList;
 	
-	public QueryExecutor( String _url, boolean _isWAL ) throws Exception
+	public QueryExecutor(Connection _con) throws Exception
 	{
-		m_dbConnection = DriverManager.getConnection( "jdbc:sqlite:" + _url );
+		this.dbConnection = _con;
 		
-		if(_isWAL)
-		{
-			Statement statement = null;
-			
-			try
-			{
-				statement = m_dbConnection.createStatement();
-				statement.execute( "PRAGMA journal_mode=WAL;" );
-			}
-			catch( Exception e )
-			{
-				throw e;
-			}
-		    finally
-		    {
-		    	if( statement != null )
-		    	{
-		    		statement.close();
-		    	}
-		    }
-		}
+		selectList = new ConcurrentLinkedQueue<QueryVOImpl>();
+		otherList = new ConcurrentLinkedQueue<QueryVOImpl>();
 		
-		m_selectList = new ConcurrentLinkedQueue<QueryVOImpl>();
-		m_otherList = new ConcurrentLinkedQueue<QueryVOImpl>();
-		
-		m_worker = new ExecutorWorker();
-		m_worker.start();
+		worker = new ExecutorWorker();
+		worker.start();
 	}
 	
 	@Override
 	public int getSelectSize()
 	{
-		return m_selectList.size();
+		return selectList.size();
 	}
 	
 	@Override
 	public int getOtherSize()
 	{
-		return m_otherList.size();
+		return otherList.size();
 	}
 	
 	@Override
 	public int size()
 	{
-		return m_selectList.size() + m_otherList.size();
+		return selectList.size() + otherList.size();
 	}
 	
 	@Override
 	public void executeSelect( QueryVOImpl _vo ) 
 	{
-		m_selectList.add(_vo);
+		selectList.add(_vo);
 	}
 
 	@Override
 	public void executeOther( QueryVOImpl _vo ) 
 	{
-		m_otherList.add( _vo );
+		otherList.add( _vo );
 	}
 	
 	@Override
 	public void stop() throws Exception
 	{
-		m_worker.stopWorker();
-		m_dbConnection.close();
+		worker.stopWorker();
+		dbConnection.close();
 	}
 	
 	private class ExecutorWorker extends Thread
@@ -108,26 +84,26 @@ public class QueryExecutor implements Executor
 			{
 				boolean isHasQuery = false;
 				
-				QueryVOImpl selectVO = m_selectList.poll();
+				QueryVOImpl selectVO = selectList.poll();
 				if(selectVO != null )
 				{
 					isHasQuery = true;
 					
-					DAO.select(m_dbConnection, selectVO);
+					DAO.select(dbConnection, selectVO);
 				}
 				
-				QueryVOImpl otherVO = m_otherList.poll();
+				QueryVOImpl otherVO = otherList.poll();
 				if( otherVO != null )
 				{
 					isHasQuery = true;
 					
 					if( otherVO.getMode() == QueryVO.Type.INSERT || otherVO.getMode() == QueryVO.Type.EXECUTE )
 					{
-						DAO.insertOrExecute( m_dbConnection, otherVO );
+						DAO.insertOrExecute( dbConnection, otherVO );
 					}
 					else
 					{
-						DAO.updateOrDelete( m_dbConnection, otherVO );
+						DAO.updateOrDelete( dbConnection, otherVO );
 					}
 				}
 				

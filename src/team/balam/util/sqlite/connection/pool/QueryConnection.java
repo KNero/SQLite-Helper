@@ -6,29 +6,29 @@ import team.balam.util.sqlite.connection.vo.QueryVOImpl;
 
 public class QueryConnection implements Connection
 {
-	private Executor m_executor;
+	private Executor executor;
 	
 	public QueryConnection( Executor _executor )
 	{
-		m_executor = _executor;
+		executor = _executor;
 	}
 	
 	@Override
 	public int getSelectSize()
 	{
-		return m_executor.getSelectSize();
+		return executor.getSelectSize();
 	}
 	
 	@Override
 	public int getOtherSize()
 	{
-		return m_executor.getOtherSize();
+		return executor.getOtherSize();
 	}
 	
 	@Override
 	public int size()
 	{
-		return m_executor.size();
+		return executor.size();
 	}
 	
 	@Override
@@ -37,20 +37,20 @@ public class QueryConnection implements Connection
 		switch( _vo.getMode() )
 		{
 			case QueryVO.Type.SELECT :
-				m_executor.executeSelect((QueryVOImpl)_vo);
+				executor.executeSelect((QueryVOImpl)_vo);
 				break;
 			
 			case QueryVO.Type.EXECUTE :
 			case QueryVO.Type.DELETE :
 			case QueryVO.Type.INSERT :
 			case QueryVO.Type.UPDATE :
-				m_executor.executeOther((QueryVOImpl)_vo);
+				executor.executeOther((QueryVOImpl)_vo);
 				break;
 		}
 	}
 	
 	public void close() throws Exception
 	{
-		m_executor.stop();
+		executor.stop();
 	}
 }

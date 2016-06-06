@@ -7,13 +7,13 @@ import team.balam.util.sqlite.connection.vo.QueryVOImpl;
 
 public class PoolManager 
 {
-	private ConnectionPool m_connectionPool;
+	private ConnectionPool connectionPool;
 	
 	private static PoolManager self = new PoolManager();
 	
 	private PoolManager()
 	{
-		m_connectionPool = new QueryConnectionPool();
+		connectionPool = new QueryConnectionPool();
 	}
 	
 	public static PoolManager getInstance()
@@ -26,26 +26,26 @@ public class PoolManager
 		QueryVOImpl.queryTimeout = _millisecond;
 	}
 	
-	public synchronized void createConnection(String _dbName, String _url, boolean _isWAL) throws Exception
+	public synchronized void addConnection(String _dbName, java.sql.Connection _con) throws Exception
 	{
-		m_connectionPool.createConnection(_dbName, _url, _isWAL);
+		connectionPool.addConnection(_dbName, _con);
 	}
 	
 	public Connection getConnection( String _dbName ) throws Exception
 	{
-		return m_connectionPool.get( _dbName );
+		return connectionPool.get( _dbName );
 	}
 	
 	public void destroyPool() throws Exception
 	{
-		m_connectionPool.destory();
+		connectionPool.destory();
 	}
 	
 	public int getSelectSize( String _dbName )
 	{
 		try 
 		{
-			return m_connectionPool.get( _dbName ).getSelectSize();
+			return connectionPool.get( _dbName ).getSelectSize();
 		} 
 		catch( Exception e ) 
 		{
@@ -57,7 +57,7 @@ public class PoolManager
 	{
 		try 
 		{
-			return m_connectionPool.get( _dbName ).getOtherSize();
+			return connectionPool.get( _dbName ).getOtherSize();
 		} 
 		catch( Exception e ) 
 		{
@@ -69,7 +69,7 @@ public class PoolManager
 	{
 		try 
 		{
-			return m_connectionPool.get( _dbName ).size();
+			return connectionPool.get( _dbName ).size();
 		} 
 		catch( Exception e ) 
 		{

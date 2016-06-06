@@ -2,7 +2,7 @@ package team.balam.util.sqlite.connection.pool;
 
 public interface ConnectionPool 
 {
-	void createConnection(String _name, String _url, boolean _isWAL) throws Exception;
+	void addConnection(String _name, java.sql.Connection _con) throws Exception;
 	
 	Connection get( String _name ) throws Exception;
 	
