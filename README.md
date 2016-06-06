@@ -67,7 +67,7 @@ if(result.isSuccess())
 ```
 And Result can convert to list. List contents format is Map<String, String>(key is column name(lowercase), value is column value).
 ```java
-List<HashMap<String, String>> list = result.getSelectResult();</pre>
+List<HashMap<String, String>> list = result.getSelectResult();
 			
 for(HashMap<String, String> m : list)
 {
