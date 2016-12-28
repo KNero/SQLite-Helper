@@ -15,6 +15,8 @@ class SelectResultInfo
 	private PreparedStatement preparedStatement;
 	private ResultSet resultSet;
 	
+	private List<HashMap<String, String>> resultList;
+	
 	public void setInfo(Statement _statement, PreparedStatement _preparedStatement, ResultSet _resultSet)
 	{
 		this.statement = _statement;
@@ -24,27 +26,30 @@ class SelectResultInfo
 	
 	public List<HashMap<String, String>> getResultList() throws SQLException 
 	{
-		List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-		
-		ResultSetMetaData rsmd = this.resultSet.getMetaData();
-		int columnSize = rsmd.getColumnCount();
-		
-		while( this.resultSet.next() )
+		if(this.resultList == null)
 		{
-			HashMap<String, String> m = new HashMap<String, String>();
+			this.resultList = new ArrayList<HashMap<String, String>>();
 			
-			for( int i = 1; i <= columnSize; ++i )
+			ResultSetMetaData rsmd = this.resultSet.getMetaData();
+			int columnSize = rsmd.getColumnCount();
+			
+			while( this.resultSet.next() )
 			{
-				String columnName = rsmd.getColumnName( i ).toLowerCase();
-				String columnValue = this.resultSet.getString( i );
+				HashMap<String, String> m = new HashMap<String, String>();
 				
-				m.put( columnName, columnValue );
+				for( int i = 1; i <= columnSize; ++i )
+				{
+					String columnName = rsmd.getColumnName( i ).toLowerCase();
+					String columnValue = this.resultSet.getString( i );
+					
+					m.put( columnName, columnValue );
+				}
+				
+				this.resultList.add( m );
 			}
-			
-			list.add( m );
 		}
 		
-		return list;
+		return this.resultList;
 	}
 	
 	public ResultSet getResultSet()
