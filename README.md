@@ -1,7 +1,7 @@
 # SQLite-Helper
 SQLite Single Thread And Single Connection Pool
 
-###Create or load DB File
+### Create or load DB File
 You can load many database.
 ```java
 DatabaseLoader.load("Test1", "./test1.db");
@@ -10,14 +10,14 @@ DatabaseLoader.load("Test1", "./test2.db");
 * param1 : database name
 * param2 : database file name
 
-###Get database connection
+### Get database connection
 ```java
 import team.balam.util.sqlite.connection.pool.Connection
     
 Connection connnection = PoolManager.getInstance().getConnection("Test1");
 ```
 
-###QueryVO
+### QueryVO
 QueryVO is interface for execute query.
 ```java
 team.balam.util.sqlite.connection.vo.QueryVO insertVo = QueryVoFactory.createInsert();
@@ -35,7 +35,7 @@ QueryVO deleteVo = QueryVoFactory.createDelete();
 QueryVO executeVo = QueryVoFactory.createExecute();
 ```
 
-####Make QueryVO
+#### Make QueryVO
 User QueryVO.setQuery(String) and QueryVO.setParam(Object[]) for execute query.
 ```java
 QueryVO select = QueryVoFactory.createSelect();
@@ -43,12 +43,12 @@ select.setQuery("SELECT * FROM TEST WHERE DATA1=?");
 select.setParam(new Object[]{"1111"});
 ```
 
-###Execute query
+### Execute query
 ```java
 connnection.query(select);
 ```
     
-####Get query result
+#### Get query result
 Result object is query result interface. QueryVO has result object and result object can check success.
 ```java
 team.balam.util.sqlite.connection.vo.Result result = select.getResult();
@@ -88,11 +88,11 @@ String errorMsg = result.getErrorMessage();
 Exception excep = result.getException();
 ```
 
-####Result object must call close()
+#### Result object must call close()
 ```java
 result.close();
 ```
-####Stop connection pool
+#### Stop connection pool
 Don't stop all thread when you not call destroyPool().
 ```java
 PoolManager.getInstance().destroyPool();
