@@ -36,12 +36,12 @@ public class QueryConnectionPool implements ConnectionPool
 	}
 	
 	@Override
-	public Connection get( String _name ) throws Exception
+	public Connection get( String _name ) throws ConnectionNotFoundException
 	{
 		Connection con = pool.get( _name );
 		if( con == null )
 		{
-			throw new Exception( "[ " + _name + " ]" + " The connection does not exist." );
+			throw new ConnectionNotFoundException( "[ " + _name + " ]" + " The connection does not exist." );
 		}
 		
 		return con;

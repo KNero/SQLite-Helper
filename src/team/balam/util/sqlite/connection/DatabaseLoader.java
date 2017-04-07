@@ -7,42 +7,25 @@ import java.sql.Statement;
 
 public class DatabaseLoader 
 {
-	synchronized public static void load(String _name, String _path, boolean _isWAL) throws Exception
+	synchronized public static void load(String _name, String _path, boolean _isWAL) throws DatabaseLoadException
 	{
 		File file = new File( _path );
 		if(file.exists() && file.isDirectory())
 		{
-			throw new Exception("This is not the type of file.");
+			throw new DatabaseLoadException("This is not the type of file.");
 		}
-		
-		Class.forName("org.sqlite.JDBC");
-		
-		Connection dbCon = null;
 		
 		try
 		{
-			dbCon = DriverManager.getConnection("jdbc:sqlite:" + _path);
-		}
-		catch(Exception e)
-		{
-			if(dbCon != null)
-			{
-				dbCon.close();
-			}
+			Class.forName("org.sqlite.JDBC");
 			
-			throw e;
-		}
-	
-		if(_isWAL)
-		{
-			Statement statement = null;
+			Connection dbCon = null;
 			
 			try
 			{
-				statement = dbCon.createStatement();
-				statement.execute( "PRAGMA journal_mode=WAL;" );
+				dbCon = DriverManager.getConnection("jdbc:sqlite:" + _path);
 			}
-			catch( Exception e )
+			catch(Exception e)
 			{
 				if(dbCon != null)
 				{
@@ -51,16 +34,40 @@ public class DatabaseLoader
 				
 				throw e;
 			}
-		    finally
-		    {
-		    	if( statement != null )
-		    	{
-		    		statement.close();
-		    	}
-		    }
-		}
 		
-		PoolManager.getInstance().addConnection( _name, dbCon);
+			if(_isWAL)
+			{
+				Statement statement = null;
+				
+				try
+				{
+					statement = dbCon.createStatement();
+					statement.execute( "PRAGMA journal_mode=WAL;" );
+				}
+				catch( Exception e )
+				{
+					if(dbCon != null)
+					{
+						dbCon.close();
+					}
+					
+					throw e;
+				}
+			    finally
+			    {
+			    	if( statement != null )
+			    	{
+			    		statement.close();
+			    	}
+			    }
+			}
+			
+			PoolManager.getInstance().addConnection( _name, dbCon);
+		}
+		catch(Exception e)
+		{
+			throw new DatabaseLoadException(e);
+		}
 	}
 	
 	synchronized public static void load(String _name, String _path) throws Exception
