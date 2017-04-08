@@ -1,6 +1,7 @@
 package team.balam.util.sqlite.connection.executor;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import team.balam.util.sqlite.connection.vo.QueryVO;
@@ -56,7 +57,7 @@ public class QueryExecutor implements Executor
 	}
 	
 	@Override
-	public void stop() throws Exception
+	public void stop() throws SQLException
 	{
 		worker.stopWorker();
 		dbConnection.close();

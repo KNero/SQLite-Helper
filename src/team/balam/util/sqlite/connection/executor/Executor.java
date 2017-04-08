@@ -1,5 +1,7 @@
 package team.balam.util.sqlite.connection.executor;
 
+import java.sql.SQLException;
+
 import team.balam.util.sqlite.connection.vo.QueryVOImpl;
 
 public interface Executor 
@@ -11,5 +13,5 @@ public interface Executor
 	void executeSelect( QueryVOImpl _vo );
 	void executeOther( QueryVOImpl _vo );
 	
-	void stop() throws Exception;
+	void stop() throws SQLException;
 }

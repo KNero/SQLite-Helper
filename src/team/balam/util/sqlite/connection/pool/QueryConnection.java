@@ -1,5 +1,7 @@
 package team.balam.util.sqlite.connection.pool;
 
+import java.sql.SQLException;
+
 import team.balam.util.sqlite.connection.executor.Executor;
 import team.balam.util.sqlite.connection.vo.QueryVO;
 import team.balam.util.sqlite.connection.vo.QueryVOImpl;
@@ -49,7 +51,7 @@ public class QueryConnection implements Connection
 		}
 	}
 	
-	public void close() throws Exception
+	public void close() throws SQLException
 	{
 		executor.stop();
 	}
