@@ -24,5 +24,5 @@ public interface QueryVO
 	Object[] getParam();
 	void setParam(Object[] _param);
 	
-	Result getResult() throws InterruptedException;
+	Result getResult();
 }

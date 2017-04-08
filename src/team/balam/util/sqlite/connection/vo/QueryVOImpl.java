@@ -66,11 +66,17 @@ public class QueryVOImpl implements QueryVO
 	}
 	
 	@Override
-	public Result getResult() throws InterruptedException 
+	public Result getResult() 
 	{
-		if( result == null )
+		if(result == null)
 		{
-			result = resultQueue.poll( queryTimeout, TimeUnit.MILLISECONDS );
+			try
+			{
+				result = resultQueue.poll(queryTimeout, TimeUnit.MILLISECONDS);
+			}
+			catch(InterruptedException e)
+			{
+			}
 		}
 		
 		return result;
