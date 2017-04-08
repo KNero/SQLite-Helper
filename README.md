@@ -8,7 +8,7 @@ DatabaseLoader.load("Test1", "./test1.db");
 DatabaseLoader.load("Test1", "./test2.db");
 ```
 * param1 : database name
-* param2 : database file name
+* param2 : database file path and name
 
 ### Get database connection
 ```java
@@ -91,6 +91,10 @@ Exception excep = result.getException();
 #### Result object must call close()
 ```java
 result.close();
+```
+#### Remove connection from connection pool
+```java
+PoolManager.getInstance().removeConnection(connectionName);
 ```
 #### Stop connection pool
 Don't stop all thread when you not call destroyPool().
