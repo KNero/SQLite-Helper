@@ -1,5 +1,6 @@
 package team.balam.util.sqlite.connection.pool;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +49,17 @@ public class QueryConnectionPool implements ConnectionPool
 	}
 	
 	@Override
-	public void destory() throws Exception
+	public void remove(String _name) throws SQLException
+	{
+		Connection con = this.pool.remove(_name);
+		if(con != null)
+		{
+			((QueryConnection)con).close();
+		}
+	}
+	
+	@Override
+	public void destory() throws SQLException
 	{
 		for( String name : pool.keySet() )
 		{

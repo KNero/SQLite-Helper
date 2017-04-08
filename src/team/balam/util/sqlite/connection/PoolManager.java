@@ -1,5 +1,7 @@
 package team.balam.util.sqlite.connection;
 
+import java.sql.SQLException;
+
 import team.balam.util.sqlite.connection.pool.Connection;
 import team.balam.util.sqlite.connection.pool.ConnectionNotFoundException;
 import team.balam.util.sqlite.connection.pool.ConnectionPool;
@@ -35,6 +37,11 @@ public class PoolManager
 	public Connection getConnection( String _dbName ) throws ConnectionNotFoundException
 	{
 		return connectionPool.get( _dbName );
+	}
+	
+	public void removeConnection(String _dbName) throws SQLException
+	{
+		this.connectionPool.remove(_dbName);
 	}
 	
 	public void destroyPool() throws Exception
