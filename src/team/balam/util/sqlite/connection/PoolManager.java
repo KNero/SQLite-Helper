@@ -2,10 +2,11 @@ package team.balam.util.sqlite.connection;
 
 import java.sql.SQLException;
 
-import team.balam.util.sqlite.connection.pool.Connection;
+import team.balam.util.sqlite.connection.pool.AlreadyExistsConnectionException;
 import team.balam.util.sqlite.connection.pool.ConnectionNotFoundException;
 import team.balam.util.sqlite.connection.pool.ConnectionPool;
 import team.balam.util.sqlite.connection.pool.QueryConnectionPool;
+import team.balam.util.sqlite.connection.vo.QueryVO;
 import team.balam.util.sqlite.connection.vo.QueryVOImpl;
 
 public class PoolManager 
@@ -16,7 +17,7 @@ public class PoolManager
 	
 	private PoolManager()
 	{
-		connectionPool = new QueryConnectionPool();
+		this.connectionPool = new QueryConnectionPool();
 	}
 	
 	public static PoolManager getInstance()
@@ -26,17 +27,22 @@ public class PoolManager
 	
 	public void setQueryTimeout( int _millisecond )
 	{
-		QueryVOImpl.queryTimeout = _millisecond;
+		QueryVOImpl.setQueryTimeout(_millisecond);
 	}
 	
-	public synchronized void addConnection(String _dbName, java.sql.Connection _con) throws Exception
+	public boolean containsConnection(String _dbName)
 	{
-		connectionPool.addConnection(_dbName, _con);
+		return this.connectionPool.contains(_dbName);
 	}
 	
-	public Connection getConnection( String _dbName ) throws ConnectionNotFoundException
+	synchronized void addConnection(String _dbName, java.sql.Connection _con) throws AlreadyExistsConnectionException
 	{
-		return connectionPool.get( _dbName );
+		this.connectionPool.add(_dbName, _con);
+	}
+	
+	public void executeQuery(String _dbName, QueryVO _vo) throws ConnectionNotFoundException
+	{
+		this.connectionPool.executeQuery(_dbName, _vo);
 	}
 	
 	public void removeConnection(String _dbName) throws SQLException
@@ -46,42 +52,16 @@ public class PoolManager
 	
 	public void destroyPool() throws Exception
 	{
-		connectionPool.destory();
+		this.connectionPool.destory();
 	}
 	
-	public int getSelectSize( String _dbName )
+	public int getActiveQuerySize()
 	{
-		try 
-		{
-			return connectionPool.get( _dbName ).getSelectSize();
-		} 
-		catch( Exception e ) 
-		{
-			return 0;
-		}
+		return this.connectionPool.getActiveQuerySize();
 	}
-	
-	public int getOtherSize( String _dbName )
+
+	public int getWaitQuerySize()
 	{
-		try 
-		{
-			return connectionPool.get( _dbName ).getOtherSize();
-		} 
-		catch( Exception e ) 
-		{
-			return 0;
-		}
-	}
-	
-	public int size( String _dbName )
-	{
-		try 
-		{
-			return connectionPool.get( _dbName ).size();
-		} 
-		catch( Exception e ) 
-		{
-			return 0;
-		}
+		return this.connectionPool.getWaitQuerySize();
 	}
 }
