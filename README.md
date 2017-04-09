@@ -10,13 +10,6 @@ DatabaseLoader.load("Test1", "./test2.db");
 * param1 : database name
 * param2 : database file path and name
 
-### Get database connection
-```java
-import team.balam.util.sqlite.connection.pool.Connection
-    
-Connection connnection = PoolManager.getInstance().getConnection("Test1");
-```
-
 ### QueryVO
 QueryVO is interface for execute query.
 ```java
@@ -45,7 +38,7 @@ select.setParam(new Object[]{"1111"});
 
 ### Execute query
 ```java
-connnection.query(select);
+PoolManager.getInstance().executeQuery(dbName, queryVo);
 ```
     
 #### Get query result
@@ -60,12 +53,13 @@ if(result.isSuccess())
     {
         System.out.println(rs.getString(1));
         System.out.println(rs.getString(2));
-		System.out.println(rs.getString(3));
-		System.out.println();
-	}
+	System.out.println(rs.getString(3));
+	System.out.println();
+    }
 }
 ```
-And Result can convert to list. List contents format is Map<String, String>(key is column name(lowercase), value is column value).
+And Result can convert to list. List contents format is Map<String, String>
+* key is column name(lowercase), value is column value.
 ```java
 List<HashMap<String, String>> list = result.getSelectResult();
 			
