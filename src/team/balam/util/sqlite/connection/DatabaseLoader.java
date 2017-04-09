@@ -5,18 +5,25 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+import team.balam.util.sqlite.connection.pool.AlreadyExistsConnectionException;
+
 public class DatabaseLoader 
 {
-	synchronized public static void load(String _name, String _path, boolean _isWAL) throws DatabaseLoadException
+	synchronized public static void load(String _name, String _path, boolean _isWAL) throws AlreadyExistsConnectionException, DatabaseLoadException
 	{
-		File file = new File( _path );
-		if(file.exists() && file.isDirectory())
-		{
-			throw new DatabaseLoadException("This is not the type of file.");
-		}
-		
 		try
 		{
+			if(PoolManager.getInstance().containsConnection(_name))
+			{
+				throw new AlreadyExistsConnectionException(_name);
+			}
+			
+			File file = new File( _path );
+			if(file.exists() && file.isDirectory())
+			{
+				throw new DatabaseLoadException("This is not the type of file.");
+			}
+			
 			Class.forName("org.sqlite.JDBC");
 			
 			Connection dbCon = null;
@@ -63,6 +70,10 @@ public class DatabaseLoader
 			}
 			
 			PoolManager.getInstance().addConnection( _name, dbCon);
+		}
+		catch(AlreadyExistsConnectionException e)
+		{
+			throw e;
 		}
 		catch(Exception e)
 		{
