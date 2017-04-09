@@ -55,13 +55,16 @@ public class QueryConnectionPool implements ConnectionPool
 	@Override
 	public void executeQuery(String _name, QueryVO _vo) throws ConnectionNotFoundException
 	{
-		java.sql.Connection con = pool.get( _name );
-		if( con == null )
+		java.sql.Connection con = this.pool.get(_name);
+		if(con == null)
 		{
 			throw new ConnectionNotFoundException( "[ " + _name + " ]" + " The connection does not exist." );
 		}
 		
-		this.workerPool.execute(new QueryExecutor(con, _vo));
+		synchronized(con)
+		{
+			this.workerPool.execute(new QueryExecutor(con, _vo));
+		}
 	}
 	
 	@Override
