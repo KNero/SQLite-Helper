@@ -1,4 +1,4 @@
-package team.balam.util.sqlite.connection.executor;
+package team.balam.util.sqlite.connection.pool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import team.balam.util.sqlite.connection.vo.QueryVOImpl;
 
 public class DAO 
 {
-	public static void select( Connection _con, QueryVOImpl _vo )
+	static void select( Connection _con, QueryVOImpl _vo )
 	{
 		Statement statement = null;
 		PreparedStatement ps = null;
@@ -54,7 +54,7 @@ public class DAO
 		}
 	}
 	
-	public static void updateOrDelete( Connection _con, QueryVOImpl _vo )
+	static void updateOrDelete( Connection _con, QueryVOImpl _vo )
 	{
 		Statement st = null;
 		PreparedStatement ps = null;
@@ -115,7 +115,7 @@ public class DAO
 		}
 	}
 	
-	public static void insertOrExecute( Connection _con, QueryVOImpl _vo )
+	static void insertOrExecute( Connection _con, QueryVOImpl _vo )
 	{
 		Statement st = null;
 		PreparedStatement ps = null;
@@ -174,7 +174,7 @@ public class DAO
 		}
 	}
 	
-	public static void close(QueryResult _result, Statement _stat )
+	static void close(QueryResult _result, Statement _stat )
 	{
 		try
 		{
