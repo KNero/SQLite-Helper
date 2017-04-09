@@ -25,7 +25,10 @@ public class QueryConnectionPool implements ConnectionPool
 					@Override
 					public void rejectedExecution(Runnable _r, ThreadPoolExecutor _executor)
 					{
-						_executor.execute(_r);
+						if(! _executor.isShutdown())
+						{
+							_executor.execute(_r);
+						}
 					}
 				});
 		
