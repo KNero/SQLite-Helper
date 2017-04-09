@@ -15,9 +15,14 @@ public class QueryVOImpl implements QueryVO
 	private BlockingQueue<Result> resultQueue;
 	private Result result;
 	
-	public static int queryTimeout = 10000;
+	private static int queryTimeout = 10000;
 	
-	public QueryVOImpl( byte _mode )
+	public static void setQueryTimeout(int queryTimeout)
+	{
+		QueryVOImpl.queryTimeout = queryTimeout;
+	}
+	
+	QueryVOImpl( byte _mode )
 	{
 		mode = _mode;
 		resultQueue = new LinkedBlockingQueue<Result>();

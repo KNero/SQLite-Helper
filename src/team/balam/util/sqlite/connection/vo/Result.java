@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface Result 
 {
-	public List<HashMap<String, String>> getSelectResult() throws SQLException;
+	public List<HashMap<String, Object>> getSelectResult() throws SQLException;
 	public ResultSet getResultSet();
 	public int getResultCount();
 	

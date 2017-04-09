@@ -24,7 +24,7 @@ public class QueryResult implements Result
 	}
 	
 	@Override
-	public List<HashMap<String, String>> getSelectResult() throws SQLException 
+	public List<HashMap<String, Object>> getSelectResult() throws SQLException 
 	{
 		return this.selectResult.getResultList();
 	}
