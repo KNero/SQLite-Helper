@@ -23,7 +23,6 @@
 	
 	<build>
 		<sourceDirectory>src</sourceDirectory>
-		<testSourceDirectory>src/team/balam/util/sqlite/test</testSourceDirectory>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
