@@ -12,7 +12,6 @@ public interface Result
 	public int getResultCount();
 	
 	public boolean isSuccess();
-	public boolean isCloseException();
 	public String getErrorMessage();
 	public Exception getException();
 	

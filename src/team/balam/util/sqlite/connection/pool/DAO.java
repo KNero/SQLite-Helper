@@ -154,7 +154,6 @@ public class DAO
 		}
 		catch( Exception e )
 		{
-			_result.onCloseException();
 			_result.setErrorMessage( e.getMessage() );
 			_result.setException( e );
 		}

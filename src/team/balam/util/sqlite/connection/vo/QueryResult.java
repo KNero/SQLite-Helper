@@ -12,7 +12,6 @@ public class QueryResult implements Result
 	private SelectResultInfo selectResult;
 	private int count;
 	
-	private boolean isCloseException;
 	private boolean isSuccess;
 	private String errorMessage;
 	private Exception exception;
@@ -46,17 +45,6 @@ public class QueryResult implements Result
 		return count;
 	}
 	
-	public void onCloseException()
-	{
-		this.isCloseException = false;
-	}
-	
-	@Override
-	public boolean isCloseException()
-	{
-		return this.isCloseException;
-	}
-
 	public void onSuccess()
 	{
 		isSuccess = true;
