@@ -9,7 +9,6 @@ public class QueryVOImpl implements QueryVO
 {
 	private byte mode;
 	private String query;
-	private List<Object[]> paramList;
 	private Object[] param;
 	
 	private BlockingQueue<Result> resultQueue;
@@ -47,12 +46,6 @@ public class QueryVOImpl implements QueryVO
 	}
 
 	@Override
-	public List<Object[]> getParamList() 
-	{
-		return paramList;
-	}
-	
-	@Override
 	public Object[] getParam()
 	{
 		return this.param;
@@ -61,7 +54,7 @@ public class QueryVOImpl implements QueryVO
 	@Override
 	public void setParam(List<Object[]> _param)
 	{
-		this.paramList = _param;
+		this.param = _param.toArray();
 	}
 	
 	@Override
@@ -71,19 +64,18 @@ public class QueryVOImpl implements QueryVO
 	}
 	
 	@Override
-	public Result getResult() 
-	{
-		if(result == null)
-		{
-			try
-			{
+	public Result getResult() throws QueryTimeoutException {
+		if (result == null) {
+			try {
 				result = resultQueue.poll(queryTimeout, TimeUnit.MILLISECONDS);
-			}
-			catch(InterruptedException e)
-			{
+			} catch (InterruptedException e) {
 			}
 		}
-		
+
+		if (this.result == null) {
+			throw new QueryTimeoutException(this.query, this.param);
+		}
+
 		return result;
 	}
 

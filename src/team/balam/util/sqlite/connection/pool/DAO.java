@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.List;
 
 import team.balam.util.sqlite.connection.vo.QueryResult;
 import team.balam.util.sqlite.connection.vo.QueryVOImpl;
@@ -76,21 +75,6 @@ public class DAO
 				
 				count += ps.executeUpdate();
 			}
-			else if(_vo.getParamList() != null && _vo.getParamList().size() > 0)
-			{
-				ps = _con.prepareStatement( _vo.getQuery() );
-				
-				List<Object[]> paramList = _vo.getParamList();
-				for( Object[] param : paramList )
-				{
-					for( int p = 1; p <= param.length; ++p )
-					{
-						ps.setObject( p, param[ p - 1 ] );
-					}
-					
-					count += ps.executeUpdate();
-				}
-			}
 			else
 			{
 				st = _con.createStatement();
@@ -135,21 +119,6 @@ public class DAO
 				}
 				
 				ps.execute();
-			}
-			else if(_vo.getParamList() != null && _vo.getParamList().size() > 0)
-			{
-				ps = _con.prepareStatement( _vo.getQuery() );
-				
-				List<Object[]> paramList = _vo.getParamList();
-				for( Object[] param : paramList )
-				{
-					for( int p = 1; p <= param.length; ++p )
-					{
-						ps.setObject( p, param[ p - 1 ] );
-					}
-					
-					ps.execute();
-				}
 			}
 			else
 			{

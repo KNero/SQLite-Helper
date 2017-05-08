@@ -18,11 +18,9 @@ public interface QueryVO
 	String getQuery(); 
 	void setQuery(String _query);
 	
-	List<Object[]> getParamList();
-	void setParam(List<Object[]> _param);
-	
 	Object[] getParam();
 	void setParam(Object[] _param);
+	void setParam(List<Object[]> _param);
 	
-	Result getResult();
+	Result getResult() throws QueryTimeoutException;
 }
