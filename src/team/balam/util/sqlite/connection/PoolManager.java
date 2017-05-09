@@ -8,6 +8,7 @@ import team.balam.util.sqlite.connection.pool.ConnectionPool;
 import team.balam.util.sqlite.connection.pool.QueryConnectionPool;
 import team.balam.util.sqlite.connection.vo.QueryVO;
 import team.balam.util.sqlite.connection.vo.QueryVOImpl;
+import team.balam.util.sqlite.connection.vo.ResultAutoCloser;
 
 public class PoolManager 
 {
@@ -53,6 +54,7 @@ public class PoolManager
 	public void destroyPool() throws Exception
 	{
 		this.connectionPool.destory();
+		ResultAutoCloser.getInstance().stop();
 	}
 	
 	public int getActiveQuerySize()
