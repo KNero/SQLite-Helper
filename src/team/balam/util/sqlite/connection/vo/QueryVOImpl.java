@@ -73,6 +73,7 @@ public class QueryVOImpl implements QueryVO
 		}
 
 		if (this.result == null) {
+			ResultAutoCloser.getInstance().add(this);
 			throw new QueryTimeoutException(this.query, this.param);
 		}
 
