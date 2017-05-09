@@ -2,28 +2,15 @@ package team.balam.util.sqlite.connection.vo;
 
 public class QueryVoFactory 
 {
-	public static QueryVO createInsert()
-	{
-		return new QueryVOImpl(QueryVO.Type.INSERT);
+	private static final int DEFAULT_QUERY_TIMEOUT = 10000;
+	
+	public static QueryVO create(QueryVO.Type _type) {
+		return create(_type, 0);
 	}
 	
-	public static QueryVO createDelete()
-	{
-		return new QueryVOImpl(QueryVO.Type.DELETE);
-	}
-	
-	public static QueryVO createUpdate()
-	{
-		return new QueryVOImpl(QueryVO.Type.UPDATE);
-	}
-	
-	public static QueryVO createSelect()
-	{
-		return new QueryVOImpl(QueryVO.Type.SELECT);
-	}
-	
-	public static QueryVO createExecute()
-	{
-		return new QueryVOImpl(QueryVO.Type.EXECUTE);
+	public static QueryVO create(QueryVO.Type _type, int _queryTimeout) {
+		QueryVO vo = new QueryVOImpl(QueryVO.Type.INSERT);
+		vo.setQueryTimeout(_queryTimeout > 0 ? _queryTimeout : DEFAULT_QUERY_TIMEOUT);
+		return vo;
 	}
 }
