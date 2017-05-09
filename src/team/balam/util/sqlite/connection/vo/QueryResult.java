@@ -86,4 +86,14 @@ public class QueryResult implements Result
 			this.selectResult.close();
 		}
 	}
+	
+	@Override
+	public boolean isClosed() throws SQLException {
+		if (this.selectResult != null) {
+			return this.selectResult.isClosed();
+		}
+		
+		return true;
+	}
+	
 }

@@ -16,4 +16,5 @@ public interface Result
 	public Exception getException();
 	
 	public void close() throws SQLException;
+	public boolean isClosed() throws SQLException;
 }

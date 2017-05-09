@@ -63,4 +63,8 @@ class SelectResultInfo
 		if(this.preparedStatement != null ) this.preparedStatement.close();
 		if(this.resultSet != null ) this.resultSet.close();
 	}
+	
+	public boolean isClosed() throws SQLException {
+		return this.resultSet.isClosed();
+	}
 }

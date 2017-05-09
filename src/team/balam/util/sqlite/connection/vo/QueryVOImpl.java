@@ -65,9 +65,9 @@ public class QueryVOImpl implements QueryVO
 	
 	@Override
 	public Result getResult() throws QueryTimeoutException {
-		if (result == null) {
+		if (this.result == null) {
 			try {
-				result = resultQueue.poll(queryTimeout, TimeUnit.MILLISECONDS);
+				this.result = resultQueue.poll(queryTimeout, TimeUnit.MILLISECONDS);
 			} catch (InterruptedException e) {
 			}
 		}
@@ -76,7 +76,7 @@ public class QueryVOImpl implements QueryVO
 			throw new QueryTimeoutException(this.query, this.param);
 		}
 
-		return result;
+		return this.result;
 	}
 
 	public void setResult( Result _result ) 
