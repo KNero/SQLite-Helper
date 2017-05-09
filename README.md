@@ -13,25 +13,25 @@ DatabaseLoader.load("Test1", "./test2.db");
 ### QueryVO
 QueryVO is interface for execute query.
 ```java
-team.balam.util.sqlite.connection.vo.QueryVO insertVo = QueryVoFactory.createInsert();
+team.balam.util.sqlite.connection.vo.QueryVo insertVo = QueryVoFactory.create(QueryVo.Type.INSERT);
 ```
 ```java
-QueryVO selectVo = QueryVoFactory.createSelect();
+QueryVO selectVo = QueryVoFactory.create(QueryVo.Type.SELECT);
 ```
 ```java
-QueryVO updateVo = QueryVoFactory.createUpdate();
+QueryVO updateVo = QueryVoFactory.create(QueryVo.Type.UPDATE);
 ```
 ```java
-QueryVO deleteVo = QueryVoFactory.createDelete();
+QueryVO deleteVo = QueryVoFactory.create(QueryVo.Type.DELETE);
 ```
 ```java
-QueryVO executeVo = QueryVoFactory.createExecute();
+QueryVO executeVo = QueryVoFactory.create(QueryVo.Type.EXECUTE);
 ```
 
-#### Make QueryVO
-User QueryVO.setQuery(String) and QueryVO.setParam(Object[]) for execute query.
+#### Make QueryVo
+User QueryVo.setQuery(String) and QueryVo.setParam(Object[]) for execute query.
 ```java
-QueryVO select = QueryVoFactory.createSelect();
+QueryVo select = QueryVoFactory.create(QueryVo.Type.SELECT);
 select.setQuery("SELECT * FROM TEST WHERE DATA1=?");
 select.setParam(new Object[]{"1111"});
 ```
@@ -82,7 +82,7 @@ String errorMsg = result.getErrorMessage();
 Exception excep = result.getException();
 ```
 
-#### Result object must call close()
+#### team.balam.util.sqlite.connection.vo.Result object must call close()
 ```java
 result.close();
 ```
