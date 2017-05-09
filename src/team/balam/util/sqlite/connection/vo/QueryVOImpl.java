@@ -10,7 +10,7 @@ public class QueryVOImpl implements QueryVO
 	private QueryVO.Type mode;
 	private String query;
 	private Object[] param;
-	private int queryTimeout = 10000;
+	private int queryTimeout;
 	
 	private BlockingQueue<Result> resultQueue;
 	private Result result;
