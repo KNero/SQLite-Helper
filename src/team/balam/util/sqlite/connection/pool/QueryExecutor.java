@@ -19,17 +19,17 @@ public class QueryExecutor implements Runnable
 	{
 		switch(this.queryVo.getMode())
 		{
-			case QueryVO.Type.SELECT :
+			case SELECT :
 				DAO.select(this.dbCon, this.queryVo);
 				break;
 				
-			case QueryVO.Type.INSERT :
-			case QueryVO.Type.EXECUTE :
+			case INSERT :
+			case EXECUTE :
 				DAO.insertOrExecute(this.dbCon, this.queryVo);
 				break;
 				
-			case QueryVO.Type.UPDATE :
-			case QueryVO.Type.DELETE :
+			case UPDATE :
+			case DELETE :
 				DAO.updateOrDelete(this.dbCon, this.queryVo);
 				break;
 		}

@@ -4,16 +4,12 @@ import java.util.List;
 
 public interface QueryVO 
 {
-	interface Type
-	{
-		byte SELECT = 0;
-		byte DELETE = 1;
-		byte UPDATE = 2;
-		byte INSERT = 3;
-		byte EXECUTE = 4;
+	enum Type {
+		SELECT, DELETE, UPDATE, INSERT, EXECUTE
 	}
 	
-	byte getMode();
+	Type getMode();
+	void setQueryTimeout(int queryTimeout);
 	
 	String getQuery(); 
 	void setQuery(String _query);

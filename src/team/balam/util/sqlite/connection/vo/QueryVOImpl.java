@@ -7,30 +7,26 @@ import java.util.concurrent.TimeUnit;
 
 public class QueryVOImpl implements QueryVO
 {
-	private byte mode;
+	private QueryVO.Type mode;
 	private String query;
 	private Object[] param;
+	private int queryTimeout = 10000;
 	
 	private BlockingQueue<Result> resultQueue;
 	private Result result;
 	
-	private static int queryTimeout = 10000;
-	
-	public static void setQueryTimeout(int queryTimeout)
-	{
-		QueryVOImpl.queryTimeout = queryTimeout;
-	}
-	
-	QueryVOImpl( byte _mode )
-	{
+	QueryVOImpl(QueryVO.Type _mode) {
 		mode = _mode;
 		resultQueue = new LinkedBlockingQueue<Result>();
 	}
 	
+	public void setQueryTimeout(int queryTimeout) {
+		this.queryTimeout = queryTimeout;
+	}
+
 	@Override
-	public byte getMode()
-	{
-		return mode;
+	public QueryVO.Type getMode() {
+		return this.mode;
 	}
 	
 	@Override
