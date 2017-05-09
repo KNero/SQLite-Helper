@@ -7,7 +7,6 @@ import team.balam.util.sqlite.connection.pool.ConnectionNotFoundException;
 import team.balam.util.sqlite.connection.pool.ConnectionPool;
 import team.balam.util.sqlite.connection.pool.QueryConnectionPool;
 import team.balam.util.sqlite.connection.vo.QueryVO;
-import team.balam.util.sqlite.connection.vo.QueryVOImpl;
 import team.balam.util.sqlite.connection.vo.ResultAutoCloser;
 
 public class PoolManager 
@@ -24,11 +23,6 @@ public class PoolManager
 	public static PoolManager getInstance()
 	{
 		return self;
-	}
-	
-	public void setQueryTimeout( int _millisecond )
-	{
-		QueryVOImpl.setQueryTimeout(_millisecond);
 	}
 	
 	public boolean containsConnection(String _dbName)
