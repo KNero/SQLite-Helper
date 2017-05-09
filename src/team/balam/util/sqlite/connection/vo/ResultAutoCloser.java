@@ -8,11 +8,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ResultAutoCloser {
 	private static ResultAutoCloser self = new ResultAutoCloser();
 	
-	private BlockingQueue<QueryVO> queryVoList;
+	private BlockingQueue<QueryVo> queryVoList;
 	private AtomicBoolean isRunning;
 	
 	private ResultAutoCloser() {
-		this.queryVoList = new LinkedBlockingQueue<QueryVO>();
+		this.queryVoList = new LinkedBlockingQueue<QueryVo>();
 		this.isRunning = new AtomicBoolean(false);
 	}
 	
@@ -27,7 +27,7 @@ public class ResultAutoCloser {
 				public void run() {
 					while (self.isRunning.get()) {
 						try {
-							QueryVO vo = self.queryVoList.poll(1, TimeUnit.SECONDS);
+							QueryVo vo = self.queryVoList.poll(1, TimeUnit.SECONDS);
 							if (vo != null) {
 								Result result = vo.getResult();
 								if (result != null) {
@@ -48,7 +48,7 @@ public class ResultAutoCloser {
 		this.isRunning.compareAndSet(true, false);
 	}
 	
-	public void add(QueryVO _vo) {
+	public void add(QueryVo _vo) {
 		this.queryVoList.add(_vo);
 	}
 }

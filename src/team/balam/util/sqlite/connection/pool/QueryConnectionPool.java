@@ -9,7 +9,7 @@ import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import team.balam.util.sqlite.connection.vo.QueryVO;
+import team.balam.util.sqlite.connection.vo.QueryVo;
 
 public class QueryConnectionPool implements ConnectionPool
 {
@@ -53,7 +53,7 @@ public class QueryConnectionPool implements ConnectionPool
 	}
 	
 	@Override
-	public void executeQuery(String _name, QueryVO _vo) throws ConnectionNotFoundException
+	public void executeQuery(String _name, QueryVo _vo) throws ConnectionNotFoundException
 	{
 		java.sql.Connection con = this.pool.get(_name);
 		if(con == null)

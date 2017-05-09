@@ -5,9 +5,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class QueryVOImpl implements QueryVO
+public class QueryVoImpl implements QueryVo
 {
-	private QueryVO.Type mode;
+	private QueryVo.Type mode;
 	private String query;
 	private Object[] param;
 	private int queryTimeout;
@@ -15,7 +15,7 @@ public class QueryVOImpl implements QueryVO
 	private BlockingQueue<Result> resultQueue;
 	private Result result;
 	
-	QueryVOImpl(QueryVO.Type _mode) {
+	QueryVoImpl(QueryVo.Type _mode) {
 		mode = _mode;
 		resultQueue = new LinkedBlockingQueue<Result>();
 	}
@@ -25,7 +25,7 @@ public class QueryVOImpl implements QueryVO
 	}
 
 	@Override
-	public QueryVO.Type getMode() {
+	public QueryVo.Type getMode() {
 		return this.mode;
 	}
 	

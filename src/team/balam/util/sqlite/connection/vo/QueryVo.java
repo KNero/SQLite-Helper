@@ -2,7 +2,7 @@ package team.balam.util.sqlite.connection.vo;
 
 import java.util.List;
 
-public interface QueryVO 
+public interface QueryVo 
 {
 	enum Type {
 		SELECT, DELETE, UPDATE, INSERT, EXECUTE

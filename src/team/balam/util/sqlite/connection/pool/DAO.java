@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import team.balam.util.sqlite.connection.vo.QueryResult;
-import team.balam.util.sqlite.connection.vo.QueryVOImpl;
+import team.balam.util.sqlite.connection.vo.QueryVoImpl;
 
 public class DAO 
 {
-	static void select( Connection _con, QueryVOImpl _vo )
+	static void select( Connection _con, QueryVoImpl _vo )
 	{
 		Statement statement = null;
 		PreparedStatement ps = null;
@@ -53,7 +53,7 @@ public class DAO
 		}
 	}
 	
-	static void updateOrDelete( Connection _con, QueryVOImpl _vo )
+	static void updateOrDelete( Connection _con, QueryVoImpl _vo )
 	{
 		Statement st = null;
 		PreparedStatement ps = null;
@@ -99,7 +99,7 @@ public class DAO
 		}
 	}
 	
-	static void insertOrExecute( Connection _con, QueryVOImpl _vo )
+	static void insertOrExecute( Connection _con, QueryVoImpl _vo )
 	{
 		Statement st = null;
 		PreparedStatement ps = null;

@@ -9,10 +9,10 @@ import org.junit.Test;
 import team.balam.util.sqlite.connection.DatabaseLoader;
 import team.balam.util.sqlite.connection.PoolManager;
 import team.balam.util.sqlite.connection.pool.AlreadyExistsConnectionException;
-import team.balam.util.sqlite.connection.vo.QueryVO;
+import team.balam.util.sqlite.connection.vo.QueryVo;
 import team.balam.util.sqlite.connection.vo.QueryVoFactory;
 import team.balam.util.sqlite.connection.vo.Result;
-import team.balam.util.sqlite.connection.vo.QueryVO.Type;
+import team.balam.util.sqlite.connection.vo.QueryVo.Type;
 
 public class QueryTest
 {
@@ -31,7 +31,7 @@ public class QueryTest
 			
 		}
 		
-		QueryVO dropVo = QueryVoFactory.create(Type.EXECUTE);
+		QueryVo dropVo = QueryVoFactory.create(Type.EXECUTE);
 		dropVo.setQuery(DROP_TABLE_QUERY);
 		
 		PoolManager.getInstance().executeQuery(DB_NAME, dropVo);
@@ -41,7 +41,7 @@ public class QueryTest
 			throw dropVo.getResult().getException();
 		}
 		
-		QueryVO createVo = QueryVoFactory.create(Type.EXECUTE);
+		QueryVo createVo = QueryVoFactory.create(Type.EXECUTE);
 		createVo.setQuery(CREATE_TABLE_QUERY);
 		
 		PoolManager.getInstance().executeQuery(DB_NAME, createVo);
@@ -61,7 +61,7 @@ public class QueryTest
 		{
 			initTest();
 			
-			QueryVO insertVo = QueryVoFactory.create(Type.INSERT);
+			QueryVo insertVo = QueryVoFactory.create(Type.INSERT);
 			insertVo.setQuery("INSERT INTO TEST VALUES('test1', 123, 456)");
 			
 			PoolManager.getInstance().executeQuery(DB_NAME, insertVo);
@@ -71,7 +71,7 @@ public class QueryTest
 				throw insertVo.getResult().getException();
 			}
 			
-			QueryVO selectVo = QueryVoFactory.create(Type.SELECT);
+			QueryVo selectVo = QueryVoFactory.create(Type.SELECT);
 			selectVo.setQuery("SELECT * FROM TEST WHERE DATA1='test1'");
 			
 			PoolManager.getInstance().executeQuery(DB_NAME, selectVo);
@@ -108,7 +108,7 @@ public class QueryTest
 		{
 			initTest();
 			
-			QueryVO insertVo = QueryVoFactory.create(Type.INSERT);
+			QueryVo insertVo = QueryVoFactory.create(Type.INSERT);
 			insertVo.setQuery("INSERT INTO TEST VALUES('test1', 123, 456)");
 			
 			PoolManager.getInstance().executeQuery(DB_NAME, insertVo);
@@ -118,14 +118,14 @@ public class QueryTest
 				throw insertVo.getResult().getException();
 			}
 			
-			QueryVO updateVo = QueryVoFactory.create(Type.UPDATE);
+			QueryVo updateVo = QueryVoFactory.create(Type.UPDATE);
 			updateVo.setQuery("UPDATE TEST SET DATA1='testtest', DATA2=1234, DATA3=9870 WHERE DATA1='test1'");
 			
 			PoolManager.getInstance().executeQuery(DB_NAME, updateVo);
 			
 			Assert.assertEquals(1, updateVo.getResult().getResultCount());
 			
-			QueryVO selectVo = QueryVoFactory.create(Type.SELECT);
+			QueryVo selectVo = QueryVoFactory.create(Type.SELECT);
 			selectVo.setQuery("SELECT * FROM TEST WHERE DATA1='testtest'");
 			
 			PoolManager.getInstance().executeQuery(DB_NAME, selectVo);
@@ -162,7 +162,7 @@ public class QueryTest
 		{
 			initTest();
 			
-			QueryVO insertVo = QueryVoFactory.create(Type.INSERT);
+			QueryVo insertVo = QueryVoFactory.create(Type.INSERT);
 			insertVo.setQuery("INSERT INTO TEST VALUES('test1', 123, 456)");
 			
 			PoolManager.getInstance().executeQuery(DB_NAME, insertVo);
@@ -172,7 +172,7 @@ public class QueryTest
 				throw insertVo.getResult().getException();
 			}
 			
-			QueryVO deleteVo = QueryVoFactory.create(Type.DELETE);
+			QueryVo deleteVo = QueryVoFactory.create(Type.DELETE);
 			deleteVo.setQuery("DELETE FROM TEST WHERE DATA1='test1'");
 			
 			PoolManager.getInstance().executeQuery(DB_NAME, deleteVo);
@@ -184,7 +184,7 @@ public class QueryTest
 			
 			Assert.assertEquals(1, deleteVo.getResult().getResultCount());
 			
-			QueryVO selectVo = QueryVoFactory.create(Type.SELECT);
+			QueryVo selectVo = QueryVoFactory.create(Type.SELECT);
 			selectVo.setQuery("SELECT * FROM TEST WHERE DATA1='test1'");
 			
 			PoolManager.getInstance().executeQuery(DB_NAME, selectVo);
@@ -217,7 +217,7 @@ public class QueryTest
 		
 		try
 		{
-			QueryVO selectVo = QueryVoFactory.create(Type.SELECT);
+			QueryVo selectVo = QueryVoFactory.create(Type.SELECT);
 			selectVo.setQuery("PRAGMA table_info(test)");
 			
 			PoolManager.getInstance().executeQuery(DB_NAME, selectVo);
@@ -261,7 +261,7 @@ public class QueryTest
 		
 		try
 		{
-			QueryVO selectVo = QueryVoFactory.create(Type.SELECT);
+			QueryVo selectVo = QueryVoFactory.create(Type.SELECT);
 			selectVo.setQuery("PRAGMA index_list(test)");
 			
 			PoolManager.getInstance().executeQuery(DB_NAME, selectVo);
@@ -279,7 +279,7 @@ public class QueryTest
 					System.out.println(output.get("partial")); //"1" if the index is a partial index and "0" if not.
 					
 					Result selectResult2 = null;
-					QueryVO selectVo2 = QueryVoFactory.create(Type.SELECT);
+					QueryVo selectVo2 = QueryVoFactory.create(Type.SELECT);
 					selectVo2.setQuery("PRAGMA index_info(" + output.get("name") + ")");
 					
 					try

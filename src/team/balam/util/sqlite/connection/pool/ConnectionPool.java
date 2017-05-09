@@ -2,7 +2,7 @@ package team.balam.util.sqlite.connection.pool;
 
 import java.sql.SQLException;
 
-import team.balam.util.sqlite.connection.vo.QueryVO;
+import team.balam.util.sqlite.connection.vo.QueryVo;
 
 public interface ConnectionPool 
 {
@@ -10,7 +10,7 @@ public interface ConnectionPool
 	
 	void add(String _name, java.sql.Connection _con) throws AlreadyExistsConnectionException;
 	
-	void executeQuery(String _name, QueryVO _queryVo) throws ConnectionNotFoundException;
+	void executeQuery(String _name, QueryVo _queryVo) throws ConnectionNotFoundException;
 	
 	void remove(String _name) throws SQLException;
 	

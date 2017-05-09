@@ -6,7 +6,7 @@ import team.balam.util.sqlite.connection.pool.AlreadyExistsConnectionException;
 import team.balam.util.sqlite.connection.pool.ConnectionNotFoundException;
 import team.balam.util.sqlite.connection.pool.ConnectionPool;
 import team.balam.util.sqlite.connection.pool.QueryConnectionPool;
-import team.balam.util.sqlite.connection.vo.QueryVO;
+import team.balam.util.sqlite.connection.vo.QueryVo;
 import team.balam.util.sqlite.connection.vo.ResultAutoCloser;
 
 public class PoolManager 
@@ -35,7 +35,7 @@ public class PoolManager
 		this.connectionPool.add(_dbName, _con);
 	}
 	
-	public void executeQuery(String _dbName, QueryVO _vo) throws ConnectionNotFoundException
+	public void executeQuery(String _dbName, QueryVo _vo) throws ConnectionNotFoundException
 	{
 		this.connectionPool.executeQuery(_dbName, _vo);
 	}
