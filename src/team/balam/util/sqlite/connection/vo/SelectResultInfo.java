@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class SelectResultInfo
 {
@@ -15,7 +16,7 @@ class SelectResultInfo
 	private PreparedStatement preparedStatement;
 	private ResultSet resultSet;
 	
-	private List<HashMap<String, Object>> resultList;
+	private List<Map<String, Object>> resultList;
 	
 	public void setInfo(Statement _statement, PreparedStatement _preparedStatement, ResultSet _resultSet)
 	{
@@ -24,11 +25,11 @@ class SelectResultInfo
 		this.resultSet = _resultSet;
 	}
 	
-	public List<HashMap<String, Object>> getResultList() throws SQLException 
+	public List<Map<String, Object>> getResultList() throws SQLException 
 	{
 		if(this.resultList == null)
 		{
-			this.resultList = new ArrayList<HashMap<String, Object>>();
+			this.resultList = new ArrayList<Map<String, Object>>();
 			
 			ResultSetMetaData rsmd = this.resultSet.getMetaData();
 			int columnSize = rsmd.getColumnCount();

@@ -1,7 +1,7 @@
 package team.balam.util.sqlite.test;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,9 +10,9 @@ import team.balam.util.sqlite.connection.DatabaseLoader;
 import team.balam.util.sqlite.connection.PoolManager;
 import team.balam.util.sqlite.connection.pool.AlreadyExistsConnectionException;
 import team.balam.util.sqlite.connection.vo.QueryVo;
+import team.balam.util.sqlite.connection.vo.QueryVo.Type;
 import team.balam.util.sqlite.connection.vo.QueryVoFactory;
 import team.balam.util.sqlite.connection.vo.Result;
-import team.balam.util.sqlite.connection.vo.QueryVo.Type;
 
 public class QueryTest
 {
@@ -79,7 +79,7 @@ public class QueryTest
 			selectResult = selectVo.getResult();
 			if(selectResult.isSuccess())
 			{
-				HashMap<String, Object> row = selectResult.getSelectResult().get(0);
+				Map<String, Object> row = selectResult.getSelectResult().get(0);
 				
 				Assert.assertEquals("test1", row.get("data1"));
 				Assert.assertEquals(123, row.get("data2"));
@@ -133,7 +133,7 @@ public class QueryTest
 			selectResult = selectVo.getResult();
 			if(selectResult.isSuccess())
 			{
-				HashMap<String, Object> row = selectResult.getSelectResult().get(0);
+				Map<String, Object> row = selectResult.getSelectResult().get(0);
 				
 				Assert.assertEquals("testtest", row.get("data1"));
 				Assert.assertEquals(1234, row.get("data2"));
@@ -225,7 +225,7 @@ public class QueryTest
 			selectResult = selectVo.getResult();
 			if(selectResult.isSuccess())
 			{
-				List<HashMap<String, Object>> list = selectResult.getSelectResult();
+				List<Map<String, Object>> list = selectResult.getSelectResult();
 				
 				Assert.assertEquals(3, list.size());
 				
@@ -271,7 +271,7 @@ public class QueryTest
 			{
 				if(selectResult.getSelectResult().size() > 0)
 				{
-					HashMap<String, Object> output = selectResult.getSelectResult().get(0);
+					Map<String, Object> output = selectResult.getSelectResult().get(0);
 					System.out.println(output.get("seq")); //A sequence number assigned to each index for internal tracking purposes.
 					System.out.println(output.get("name")); //The name of the index.
 					System.out.println(output.get("unique")); //"1" if the index is UNIQUE and "0" if not.
@@ -288,7 +288,7 @@ public class QueryTest
 						selectResult2 = selectVo2.getResult();
 						if(selectResult2.isSuccess())
 						{
-							for(HashMap<String, Object> output2 : selectResult2.getSelectResult())
+							for(Map<String, Object> output2 : selectResult2.getSelectResult())
 							{
 								System.out.println(output2.get("seqno"));
 								System.out.println(output2.get("name"));

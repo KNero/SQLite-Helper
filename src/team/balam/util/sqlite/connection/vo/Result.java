@@ -2,12 +2,12 @@ package team.balam.util.sqlite.connection.vo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface Result 
 {
-	public List<HashMap<String, Object>> getSelectResult() throws SQLException;
+	public List<Map<String, Object>> getSelectResult() throws SQLException;
 	public ResultSet getResultSet();
 	public int getResultCount();
 	

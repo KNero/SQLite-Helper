@@ -4,8 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class QueryResult implements Result
 {
@@ -23,7 +23,7 @@ public class QueryResult implements Result
 	}
 	
 	@Override
-	public List<HashMap<String, Object>> getSelectResult() throws SQLException 
+	public List<Map<String, Object>> getSelectResult() throws SQLException 
 	{
 		return this.selectResult.getResultList();
 	}
