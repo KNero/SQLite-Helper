@@ -1,6 +1,6 @@
 package team.balam.util.sqlite.connection.pool;
 
-public class ConnectionNotFoundException extends Exception
+public class ConnectionNotFoundException extends RuntimeException
 {
 	private static final long serialVersionUID = 1L;
 	
