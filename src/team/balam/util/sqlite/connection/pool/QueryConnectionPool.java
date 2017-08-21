@@ -78,7 +78,7 @@ public class QueryConnectionPool implements ConnectionPool
 	}
 	
 	@Override
-	public void destory()
+	public void destroy()
 	{
 		this.workerPool.shutdown();
 		

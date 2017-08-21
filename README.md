@@ -60,6 +60,7 @@ if(result.isSuccess())
 ```
 And Result can convert to list. List contents format is Map<String, String>
 * key is column name(lowercase), value is column value.
+
 ```java
 List<HashMap<String, String>> list = result.getSelectResult();
 			
@@ -73,10 +74,12 @@ for(HashMap<String, String> m : list)
 ```
 
 Update and delete result can get count.
+
 ```java
 int count = result.getResultCount();
 ```
-You can get exception when fail to execute query 
+You can get exception when fail to execute query
+
 ```java
 String errorMsg = result.getErrorMessage();
 Exception excep = result.getException();

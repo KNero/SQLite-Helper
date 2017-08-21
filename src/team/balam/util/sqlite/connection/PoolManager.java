@@ -47,7 +47,7 @@ public class PoolManager
 	
 	public void destroyPool() throws Exception
 	{
-		this.connectionPool.destory();
+		this.connectionPool.destroy();
 		ResultAutoCloser.getInstance().stop();
 	}
 	

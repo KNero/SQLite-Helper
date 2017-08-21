@@ -14,7 +14,7 @@ public interface ConnectionPool
 	
 	void remove(String _name) throws SQLException;
 	
-	void destory() throws SQLException;
+	void destroy() throws SQLException;
 	
 	int getActiveQuerySize();
 	
