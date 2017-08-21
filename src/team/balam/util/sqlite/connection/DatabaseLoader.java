@@ -1,16 +1,19 @@
 package team.balam.util.sqlite.connection;
 
+import team.balam.util.sqlite.connection.pool.AlreadyExistsConnectionException;
+import team.balam.util.sqlite.connection.vo.ResultAutoCloser;
+
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
-
-import team.balam.util.sqlite.connection.pool.AlreadyExistsConnectionException;
-import team.balam.util.sqlite.connection.vo.ResultAutoCloser;
 
 public class DatabaseLoader {
 	synchronized public static void load(String _name, String _path, boolean _isWAL) throws AlreadyExistsConnectionException, DatabaseLoadException {
 		ResultAutoCloser.getInstance().start();
+		Connection dbCon = null;
+		Statement statement = null;
 
 		try {
 			if (PoolManager.getInstance().containsConnection(_name)) {
@@ -24,43 +27,32 @@ public class DatabaseLoader {
 
 			Class.forName("org.sqlite.JDBC");
 
-			Connection dbCon = null;
-
-			try {
-				dbCon = DriverManager.getConnection("jdbc:sqlite:" + _path);
-			} catch (Exception e) {
-				if (dbCon != null) {
-					dbCon.close();
-				}
-
-				throw e;
-			}
+			dbCon = DriverManager.getConnection("jdbc:sqlite:" + _path);
 
 			if (_isWAL) {
-				Statement statement = null;
-
+				statement = dbCon.createStatement();
+				statement.execute("PRAGMA journal_mode=WAL;");
+			}
+		} catch (Exception e) {
+			if (dbCon != null) {
 				try {
-					statement = dbCon.createStatement();
-					statement.execute("PRAGMA journal_mode=WAL;");
-				} catch (Exception e) {
-					if (dbCon != null) {
-						dbCon.close();
-					}
-
-					throw e;
-				} finally {
-					if (statement != null) {
-						statement.close();
-					}
+					dbCon.close();
+				} catch (SQLException se) {
+					throw new DatabaseLoadException(se);
 				}
 			}
 
-			PoolManager.getInstance().addConnection(_name, dbCon);
-		} catch (AlreadyExistsConnectionException e) {
-			throw e;
-		} catch (Exception e) {
 			throw new DatabaseLoadException(e);
+		} finally {
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
+
+		PoolManager.getInstance().addConnection(_name, dbCon);
 	}
 
 	synchronized public static void load(String _name, String _path) throws Exception {
