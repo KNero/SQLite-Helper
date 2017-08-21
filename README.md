@@ -1,5 +1,5 @@
 # SQLite-Helper
-SQLite Single Thread And Single Connection Pool
+SQLite Multi Thread And Single Connection Pool
 
 ### Create or load DB File
 You can load many database.

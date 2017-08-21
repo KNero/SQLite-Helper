@@ -2,12 +2,7 @@ package team.balam.util.sqlite.connection.pool;
 
 import java.sql.SQLException;
 import java.util.Map;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.RejectedExecutionHandler;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 import team.balam.util.sqlite.connection.vo.QueryVo;
 
@@ -16,22 +11,10 @@ public class QueryConnectionPool implements ConnectionPool
 	private ThreadPoolExecutor workerPool;
 	private Map<String, java.sql.Connection> pool;
 	
-	public QueryConnectionPool()
-	{
-		int maximumPoolSize = 50;
-		BlockingQueue<Runnable> waitQueue = new ArrayBlockingQueue<Runnable>(maximumPoolSize);
-		this.workerPool = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors() + 1, maximumPoolSize, 30, TimeUnit.SECONDS, waitQueue,
-				new RejectedExecutionHandler(){
-					@Override
-					public void rejectedExecution(Runnable _r, ThreadPoolExecutor _executor)
-					{
-						if(! _executor.isShutdown())
-						{
-							_executor.execute(_r);
-						}
-					}
-				});
-		
+	public QueryConnectionPool() {
+		int maximumPoolSize = Runtime.getRuntime().availableProcessors() + 1;
+		BlockingQueue<Runnable> waitQueue = new LinkedBlockingQueue<Runnable>();
+		this.workerPool = new ThreadPoolExecutor(maximumPoolSize, maximumPoolSize * 2, 30, TimeUnit.SECONDS, waitQueue);
 		this.pool = new ConcurrentHashMap<String, java.sql.Connection>();
 	}
 	
