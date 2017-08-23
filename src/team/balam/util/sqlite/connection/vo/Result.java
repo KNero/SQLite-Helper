@@ -5,16 +5,15 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-public interface Result 
+public interface Result
 {
-	public List<Map<String, Object>> getSelectResult() throws SQLException;
-	public ResultSet getResultSet();
-	public int getResultCount();
+	List<Map<String, Object>> getSelectResult() throws SQLException;
+	ResultSet getResultSet();
+	int getResultCount();
 	
-	public boolean isSuccess();
-	public String getErrorMessage();
-	public Exception getException();
+	boolean isSuccess();
+	Exception getException();
 	
-	public void close() throws SQLException;
-	public boolean isClosed() throws SQLException;
+	void close() throws SQLException;
+	boolean isClosed() throws SQLException;
 }

@@ -5,7 +5,7 @@ public class QueryVoFactory
 	private static final int DEFAULT_QUERY_TIMEOUT = 10000;
 	
 	public static QueryVo create(QueryVo.Type _type) {
-		return create(_type, 0);
+		return create(_type, DEFAULT_QUERY_TIMEOUT);
 	}
 	
 	public static QueryVo create(QueryVo.Type _type, int _queryTimeout) {

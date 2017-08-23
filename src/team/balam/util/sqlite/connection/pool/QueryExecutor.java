@@ -3,12 +3,14 @@ package team.balam.util.sqlite.connection.pool;
 import team.balam.util.sqlite.connection.vo.QueryVo;
 import team.balam.util.sqlite.connection.vo.QueryVoImpl;
 
+import java.sql.Connection;
+
 public class QueryExecutor implements Runnable
 {
-	private java.sql.Connection dbCon;
+	private Connection dbCon;
 	private QueryVoImpl queryVo;
 	
-	QueryExecutor(java.sql.Connection _con, QueryVo _vo)
+	QueryExecutor(Connection _con, QueryVo _vo)
 	{
 		this.dbCon = _con;
 		this.queryVo = (QueryVoImpl)_vo;

@@ -13,7 +13,6 @@ public class QueryResult implements Result
 	private int count;
 	
 	private boolean isSuccess;
-	private String errorMessage;
 	private Exception exception;
 	
 	public void setSelectResult(Statement _statement, PreparedStatement _preparedStatement, ResultSet _resultSet)
@@ -54,17 +53,6 @@ public class QueryResult implements Result
 	public boolean isSuccess() 
 	{
 		return isSuccess;
-	}
-	
-	public void setErrorMessage( String _msg )
-	{
-		errorMessage = _msg;
-	}
-
-	@Override
-	public String getErrorMessage() 
-	{
-		return errorMessage;
 	}
 	
 	public void setException( Exception _exception ) 

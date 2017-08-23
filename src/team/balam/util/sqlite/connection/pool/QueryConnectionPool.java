@@ -25,18 +25,18 @@ public class QueryConnectionPool implements ConnectionPool
 	}
 	
 	@Override
-	public void add(String _name, java.sql.Connection _con) throws AlreadyExistsConnectionException
+	public synchronized void add(String _name, java.sql.Connection _con) throws AlreadyExistsConnectionException
 	{
 		if(this.pool.containsKey(_name))
 		{
 			throw new AlreadyExistsConnectionException(_name);
 		}
-		
-		this.pool.putIfAbsent(_name, _con);
+
+		this.pool.put(_name, _con);
 	}
 	
 	@Override
-	public void executeQuery(String _name, QueryVo _vo) throws ConnectionNotFoundException
+	public void executeQuery(String _name, QueryVo _vo)
 	{
 		java.sql.Connection con = this.pool.get(_name);
 		if(con == null)
@@ -47,16 +47,6 @@ public class QueryConnectionPool implements ConnectionPool
 		synchronized(con)
 		{
 			this.workerPool.execute(new QueryExecutor(con, _vo));
-		}
-	}
-	
-	@Override
-	public void remove(String _name) throws SQLException
-	{
-		java.sql.Connection con = this.pool.remove(_name);
-		if(con != null)
-		{
-			con.close();
 		}
 	}
 	

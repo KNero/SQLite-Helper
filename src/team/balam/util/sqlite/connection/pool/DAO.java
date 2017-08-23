@@ -36,7 +36,6 @@ public class DAO
 			queryResult.setSelectResult(statement, ps, result);
 			queryResult.onSuccess();
 		} catch (Exception e) {
-			queryResult.setErrorMessage(e.getMessage());
 			queryResult.setException(e);
 		} finally {
 			_vo.setResult(queryResult);
@@ -72,7 +71,6 @@ public class DAO
 			queryResult.setResultCount(count);
 			queryResult.onSuccess();
 		} catch (Exception e) {
-			queryResult.setErrorMessage(e.getMessage());
 			queryResult.setException(e);
 		} finally {
 			_vo.setResult(queryResult);
@@ -106,7 +104,6 @@ public class DAO
 
 			queryResult.onSuccess();
 		} catch (Exception e) {
-			queryResult.setErrorMessage(e.getMessage());
 			queryResult.setException(e);
 		} finally {
 			_vo.setResult(queryResult);
@@ -122,7 +119,6 @@ public class DAO
 				_stat.close();
 			}
 		} catch (Exception e) {
-			_result.setErrorMessage(e.getMessage());
 			_result.setException(e);
 		}
 	}

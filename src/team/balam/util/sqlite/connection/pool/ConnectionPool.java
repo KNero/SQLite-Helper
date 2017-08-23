@@ -10,10 +10,8 @@ public interface ConnectionPool
 	
 	void add(String _name, java.sql.Connection _con) throws AlreadyExistsConnectionException;
 	
-	void executeQuery(String _name, QueryVo _queryVo) throws ConnectionNotFoundException;
-	
-	void remove(String _name) throws SQLException;
-	
+	void executeQuery(String _name, QueryVo _queryVo);
+
 	void destroy() throws SQLException;
 	
 	int getActiveQuerySize();
