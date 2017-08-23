@@ -8,7 +8,7 @@ import java.sql.Statement;
 import team.balam.util.sqlite.connection.vo.QueryResult;
 import team.balam.util.sqlite.connection.vo.QueryVoImpl;
 
-public class DAO 
+class DAO
 {
 	static void select(Connection _con, QueryVoImpl _vo) {
 		Statement statement = null;
@@ -39,9 +39,6 @@ public class DAO
 			queryResult.setException(e);
 		} finally {
 			_vo.setResult(queryResult);
-
-			close(queryResult, ps);
-			close(queryResult, statement);
 		}
 	}
 

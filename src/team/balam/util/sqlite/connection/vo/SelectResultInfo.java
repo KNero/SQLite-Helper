@@ -30,22 +30,22 @@ class SelectResultInfo
 		if(this.resultList == null)
 		{
 			this.resultList = new ArrayList<Map<String, Object>>();
-			
+
 			ResultSetMetaData rsmd = this.resultSet.getMetaData();
 			int columnSize = rsmd.getColumnCount();
-			
+
 			while( this.resultSet.next() )
 			{
 				HashMap<String, Object> m = new HashMap<String, Object>();
-				
+
 				for( int i = 1; i <= columnSize; ++i )
 				{
 					String columnName = rsmd.getColumnName( i ).toLowerCase();
 					Object columnValue = this.resultSet.getObject( i );
-					
+
 					m.put( columnName, columnValue );
 				}
-				
+
 				this.resultList.add( m );
 			}
 		}
