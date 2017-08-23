@@ -16,7 +16,7 @@ public class DatabaseLoader {
 		Statement statement = null;
 
 		try {
-			if (PoolManager.getInstance().containsConnection(_name)) {
+			if (PoolManager.containsConnection(_name)) {
 				throw new AlreadyExistsConnectionException(_name);
 			}
 
@@ -52,7 +52,7 @@ public class DatabaseLoader {
 			}
 		}
 
-		PoolManager.getInstance().addConnection(_name, dbCon);
+		PoolManager.addConnection(_name, dbCon);
 	}
 
 	synchronized public static void load(String _name, String _path) throws Exception {

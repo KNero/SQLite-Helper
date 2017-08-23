@@ -38,7 +38,7 @@ select.setParam(new Object[]{"1111"});
 
 ### Execute query
 ```java
-PoolManager.getInstance().executeQuery(dbName, queryVo);
+PoolManager.executeQuery(dbName, queryVo);
 ```
     
 #### Get query result
@@ -59,7 +59,7 @@ if(result.isSuccess())
 }
 ```
 And Result can convert to list. List contents format is Map<String, String>
-* key is column name(lowercase), value is column value.
+key is column name(*lowercase*), value is column value.
 
 ```java
 List<HashMap<String, String>> list = result.getSelectResult();
@@ -89,12 +89,8 @@ Exception excep = result.getException();
 ```java
 result.close();
 ```
-#### Remove connection from connection pool
-```java
-PoolManager.getInstance().removeConnection(connectionName);
-```
 #### Stop connection pool
 Don't stop all thread when you not call destroyPool().
 ```java
-PoolManager.getInstance().destroyPool();
+PoolManager.destroyPool();
 ```

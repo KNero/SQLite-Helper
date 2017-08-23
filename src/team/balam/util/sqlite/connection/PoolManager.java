@@ -1,7 +1,5 @@
 package team.balam.util.sqlite.connection;
 
-import java.sql.SQLException;
-
 import team.balam.util.sqlite.connection.pool.AlreadyExistsConnectionException;
 import team.balam.util.sqlite.connection.pool.ConnectionNotFoundException;
 import team.balam.util.sqlite.connection.pool.ConnectionPool;
@@ -9,55 +7,53 @@ import team.balam.util.sqlite.connection.pool.QueryConnectionPool;
 import team.balam.util.sqlite.connection.vo.QueryVo;
 import team.balam.util.sqlite.connection.vo.ResultAutoCloser;
 
+import java.sql.SQLException;
+
 public class PoolManager 
 {
-	private ConnectionPool connectionPool;
-	
-	private static PoolManager self = new PoolManager();
-	
-	private PoolManager()
+	private static ConnectionPool connectionPool= new QueryConnectionPool();
+	private static String defaultDb;
+
+	private PoolManager() {
+
+	}
+
+	public static void setDefaultDb(String _defaultDb) {
+		defaultDb = _defaultDb;
+	}
+
+	public static boolean containsConnection(String _dbName)
 	{
-		this.connectionPool = new QueryConnectionPool();
+		return connectionPool.contains(_dbName);
 	}
 	
-	public static PoolManager getInstance()
+	static void addConnection(String _dbName, java.sql.Connection _con) throws AlreadyExistsConnectionException
 	{
-		return self;
+		connectionPool.add(_dbName, _con);
+	}
+
+	public static void executeQuery(QueryVo _vo) {
+		executeQuery(defaultDb, _vo);
+	}
+
+	public static void executeQuery(String _dbName, QueryVo _vo)
+	{
+		connectionPool.executeQuery(_dbName, _vo);
 	}
 	
-	public boolean containsConnection(String _dbName)
+	public static void destroyPool() throws SQLException
 	{
-		return this.connectionPool.contains(_dbName);
-	}
-	
-	synchronized void addConnection(String _dbName, java.sql.Connection _con) throws AlreadyExistsConnectionException
-	{
-		this.connectionPool.add(_dbName, _con);
-	}
-	
-	public void executeQuery(String _dbName, QueryVo _vo) throws ConnectionNotFoundException
-	{
-		this.connectionPool.executeQuery(_dbName, _vo);
-	}
-	
-	public void removeConnection(String _dbName) throws SQLException
-	{
-		this.connectionPool.remove(_dbName);
-	}
-	
-	public void destroyPool() throws Exception
-	{
-		this.connectionPool.destroy();
+		connectionPool.destroy();
 		ResultAutoCloser.getInstance().stop();
 	}
 	
-	public int getActiveQuerySize()
+	public static int getActiveQuerySize()
 	{
-		return this.connectionPool.getActiveQuerySize();
+		return connectionPool.getActiveQuerySize();
 	}
 
-	public int getWaitQuerySize()
+	public static int getWaitQuerySize()
 	{
-		return this.connectionPool.getWaitQuerySize();
+		return connectionPool.getWaitQuerySize();
 	}
 }

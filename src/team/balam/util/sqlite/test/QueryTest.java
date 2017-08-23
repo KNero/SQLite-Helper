@@ -34,7 +34,7 @@ public class QueryTest
 		QueryVo dropVo = QueryVoFactory.create(Type.EXECUTE);
 		dropVo.setQuery(DROP_TABLE_QUERY);
 		
-		PoolManager.getInstance().executeQuery(DB_NAME, dropVo);
+		PoolManager.executeQuery(DB_NAME, dropVo);
 		
 		if(! dropVo.getResult().isSuccess())
 		{
@@ -44,7 +44,7 @@ public class QueryTest
 		QueryVo createVo = QueryVoFactory.create(Type.EXECUTE);
 		createVo.setQuery(CREATE_TABLE_QUERY);
 		
-		PoolManager.getInstance().executeQuery(DB_NAME, createVo);
+		PoolManager.executeQuery(DB_NAME, createVo);
 		
 		if(! createVo.getResult().isSuccess())
 		{
@@ -64,7 +64,7 @@ public class QueryTest
 			QueryVo insertVo = QueryVoFactory.create(Type.INSERT);
 			insertVo.setQuery("INSERT INTO TEST VALUES('test1', 123, 456)");
 			
-			PoolManager.getInstance().executeQuery(DB_NAME, insertVo);
+			PoolManager.executeQuery(DB_NAME, insertVo);
 			
 			if(! insertVo.getResult().isSuccess())
 			{
@@ -74,7 +74,7 @@ public class QueryTest
 			QueryVo selectVo = QueryVoFactory.create(Type.SELECT);
 			selectVo.setQuery("SELECT * FROM TEST WHERE DATA1='test1'");
 			
-			PoolManager.getInstance().executeQuery(DB_NAME, selectVo);
+			PoolManager.executeQuery(DB_NAME, selectVo);
 			
 			selectResult = selectVo.getResult();
 			if(selectResult.isSuccess())
@@ -111,7 +111,7 @@ public class QueryTest
 			QueryVo insertVo = QueryVoFactory.create(Type.INSERT);
 			insertVo.setQuery("INSERT INTO TEST VALUES('test1', 123, 456)");
 			
-			PoolManager.getInstance().executeQuery(DB_NAME, insertVo);
+			PoolManager.executeQuery(DB_NAME, insertVo);
 			
 			if(! insertVo.getResult().isSuccess())
 			{
@@ -121,14 +121,14 @@ public class QueryTest
 			QueryVo updateVo = QueryVoFactory.create(Type.UPDATE);
 			updateVo.setQuery("UPDATE TEST SET DATA1='testtest', DATA2=1234, DATA3=9870 WHERE DATA1='test1'");
 			
-			PoolManager.getInstance().executeQuery(DB_NAME, updateVo);
+			PoolManager.executeQuery(DB_NAME, updateVo);
 			
 			Assert.assertEquals(1, updateVo.getResult().getResultCount());
 			
 			QueryVo selectVo = QueryVoFactory.create(Type.SELECT);
 			selectVo.setQuery("SELECT * FROM TEST WHERE DATA1='testtest'");
 			
-			PoolManager.getInstance().executeQuery(DB_NAME, selectVo);
+			PoolManager.executeQuery(DB_NAME, selectVo);
 			
 			selectResult = selectVo.getResult();
 			if(selectResult.isSuccess())
@@ -165,7 +165,7 @@ public class QueryTest
 			QueryVo insertVo = QueryVoFactory.create(Type.INSERT);
 			insertVo.setQuery("INSERT INTO TEST VALUES('test1', 123, 456)");
 			
-			PoolManager.getInstance().executeQuery(DB_NAME, insertVo);
+			PoolManager.executeQuery(DB_NAME, insertVo);
 			
 			if(! insertVo.getResult().isSuccess())
 			{
@@ -175,7 +175,7 @@ public class QueryTest
 			QueryVo deleteVo = QueryVoFactory.create(Type.DELETE);
 			deleteVo.setQuery("DELETE FROM TEST WHERE DATA1='test1'");
 			
-			PoolManager.getInstance().executeQuery(DB_NAME, deleteVo);
+			PoolManager.executeQuery(DB_NAME, deleteVo);
 			
 			if(! deleteVo.getResult().isSuccess())
 			{
@@ -187,7 +187,7 @@ public class QueryTest
 			QueryVo selectVo = QueryVoFactory.create(Type.SELECT);
 			selectVo.setQuery("SELECT * FROM TEST WHERE DATA1='test1'");
 			
-			PoolManager.getInstance().executeQuery(DB_NAME, selectVo);
+			PoolManager.executeQuery(DB_NAME, selectVo);
 			
 			selectResult = selectVo.getResult();
 			if(selectResult.isSuccess())
@@ -220,7 +220,7 @@ public class QueryTest
 			QueryVo selectVo = QueryVoFactory.create(Type.SELECT);
 			selectVo.setQuery("PRAGMA table_info(test)");
 			
-			PoolManager.getInstance().executeQuery(DB_NAME, selectVo);
+			PoolManager.executeQuery(DB_NAME, selectVo);
 			
 			selectResult = selectVo.getResult();
 			if(selectResult.isSuccess())
@@ -264,7 +264,7 @@ public class QueryTest
 			QueryVo selectVo = QueryVoFactory.create(Type.SELECT);
 			selectVo.setQuery("PRAGMA index_list(test)");
 			
-			PoolManager.getInstance().executeQuery(DB_NAME, selectVo);
+			PoolManager.executeQuery(DB_NAME, selectVo);
 			
 			selectResult = selectVo.getResult();
 			if(selectResult.isSuccess())
@@ -284,7 +284,7 @@ public class QueryTest
 					
 					try
 					{
-						PoolManager.getInstance().executeQuery(DB_NAME, selectVo2);
+						PoolManager.executeQuery(DB_NAME, selectVo2);
 						selectResult2 = selectVo2.getResult();
 						if(selectResult2.isSuccess())
 						{
