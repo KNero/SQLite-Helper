@@ -60,7 +60,7 @@ public class QueryVoImpl implements QueryVo
 	}
 	
 	@Override
-	public Result getResult() throws QueryTimeoutException {
+	public Result getResult() throws QueryExecuteException {
 		if (this.result == null) {
 			try {
 				this.result = resultQueue.poll(queryTimeout, TimeUnit.MILLISECONDS);
@@ -70,7 +70,9 @@ public class QueryVoImpl implements QueryVo
 
 		if (this.result == null) {
 			ResultAutoCloser.getInstance().add(this);
-			throw new QueryTimeoutException(this.query, this.param);
+			throw new QueryTimeoutException(this);
+		} else if (this.result.getException() != null) {
+			throw new QueryExecuteException(this, this.result.getException());
 		}
 
 		return this.result;
@@ -79,5 +81,20 @@ public class QueryVoImpl implements QueryVo
 	public void setResult( Result _result ) 
 	{
 		this.resultQueue.add( _result );
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder msg = new StringBuilder("\n# Query : ");
+		msg.append(this.query);
+		msg.append("\n# Parameter : ");
+
+		if (this.param != null) {
+			for (Object p : this.param) {
+				msg.append("[").append(p.toString()).append("]");
+			}
+		}
+
+		return msg.toString();
 	}
 }

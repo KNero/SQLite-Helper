@@ -18,5 +18,5 @@ public interface QueryVo
 	void setParam(Object[] _param);
 	void setParam(List<Object[]> _param);
 	
-	Result getResult() throws QueryTimeoutException;
+	Result getResult() throws QueryExecuteException;
 }
