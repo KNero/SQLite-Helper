@@ -7,25 +7,25 @@ import java.util.concurrent.TimeUnit;
 
 public class QueryVoImpl implements QueryVo
 {
-	private QueryVo.Type mode;
+	private Type mode;
 	private String query;
 	private Object[] param;
 	private int queryTimeout;
-	
+
 	private BlockingQueue<Result> resultQueue;
 	private Result result;
-	
-	QueryVoImpl(QueryVo.Type _mode) {
+
+	QueryVoImpl(Type _mode) {
 		mode = _mode;
 		resultQueue = new LinkedBlockingQueue<Result>();
 	}
-	
+
 	public void setQueryTimeout(int queryTimeout) {
 		this.queryTimeout = queryTimeout;
 	}
 
 	@Override
-	public QueryVo.Type getMode() {
+	public Type getMode() {
 		return this.mode;
 	}
 	

@@ -1,12 +1,12 @@
 package team.balam.util.sqlite.connection.pool;
 
+import team.balam.util.sqlite.connection.vo.QueryResult;
+import team.balam.util.sqlite.connection.vo.QueryVoImpl;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
-import team.balam.util.sqlite.connection.vo.QueryResult;
-import team.balam.util.sqlite.connection.vo.QueryVoImpl;
 
 class DAO
 {

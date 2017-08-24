@@ -1,18 +1,16 @@
 package team.balam.util.sqlite.test;
 
-import java.util.List;
-import java.util.Map;
-
 import org.junit.Assert;
 import org.junit.Test;
-
 import team.balam.util.sqlite.connection.DatabaseLoader;
 import team.balam.util.sqlite.connection.PoolManager;
-import team.balam.util.sqlite.connection.pool.AlreadyExistsConnectionException;
 import team.balam.util.sqlite.connection.vo.QueryVo;
 import team.balam.util.sqlite.connection.vo.QueryVo.Type;
 import team.balam.util.sqlite.connection.vo.QueryVoFactory;
 import team.balam.util.sqlite.connection.vo.Result;
+
+import java.util.List;
+import java.util.Map;
 
 public class QueryTest
 {
@@ -26,7 +24,7 @@ public class QueryTest
 		{
 			DatabaseLoader.load(DB_NAME, DB_NAME, true);
 		}
-		catch(AlreadyExistsConnectionException e)
+		catch(Exception e)
 		{
 			
 		}
@@ -85,10 +83,6 @@ public class QueryTest
 				Assert.assertEquals(123, row.get("data2"));
 				Assert.assertEquals(456, row.get("data3"));
 			}
-			else
-			{
-				throw selectResult.getException();
-			}
 		}
 		finally
 		{
@@ -138,10 +132,6 @@ public class QueryTest
 				Assert.assertEquals("testtest", row.get("data1"));
 				Assert.assertEquals(1234, row.get("data2"));
 				Assert.assertEquals(9870, row.get("data3"));
-			}
-			else
-			{
-				throw selectResult.getException();
 			}
 		}
 		finally
@@ -194,10 +184,6 @@ public class QueryTest
 			{
 				Assert.assertEquals(0, selectVo.getResult().getSelectResult().size());
 			}
-			else
-			{
-				throw selectResult.getException();
-			}
 		}
 		finally
 		{
@@ -237,10 +223,6 @@ public class QueryTest
 				
 				Assert.assertEquals("DATA3", list.get(2).get("name"));
 				Assert.assertEquals("INTEGER", list.get(2).get("type"));
-			}
-			else
-			{
-				throw selectResult.getException();
 			}
 		}
 		finally
@@ -295,10 +277,6 @@ public class QueryTest
 								System.out.println(output2.get("cid"));
 							}
 						}
-						else
-						{
-							throw selectResult2.getException();
-						}
 					}
 					finally
 					{
@@ -308,10 +286,6 @@ public class QueryTest
 						}
 					}
 				}
-			}
-			else
-			{
-				throw selectResult.getException();
 			}
 		}
 		finally

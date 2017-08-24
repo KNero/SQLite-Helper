@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseLoader {
-	synchronized public static void load(String _name, String _path, boolean _isWAL) throws AlreadyExistsConnectionException, DatabaseLoadException {
+	synchronized public static void load(String _name, String _path, boolean _isWAL) throws DatabaseLoadException {
 		ResultAutoCloser.getInstance().start();
 		Connection dbCon = null;
 		Statement statement = null;
@@ -33,6 +33,8 @@ public class DatabaseLoader {
 				statement = dbCon.createStatement();
 				statement.execute("PRAGMA journal_mode=WAL;");
 			}
+
+			PoolManager.addConnection(_name, dbCon);
 		} catch (Exception e) {
 			if (dbCon != null) {
 				try {
@@ -51,8 +53,6 @@ public class DatabaseLoader {
 				}
 			}
 		}
-
-		PoolManager.addConnection(_name, dbCon);
 	}
 
 	synchronized public static void load(String _name, String _path) throws Exception {

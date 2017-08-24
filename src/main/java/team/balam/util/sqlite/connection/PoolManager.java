@@ -1,7 +1,6 @@
 package team.balam.util.sqlite.connection;
 
 import team.balam.util.sqlite.connection.pool.AlreadyExistsConnectionException;
-import team.balam.util.sqlite.connection.pool.ConnectionNotFoundException;
 import team.balam.util.sqlite.connection.pool.ConnectionPool;
 import team.balam.util.sqlite.connection.pool.QueryConnectionPool;
 import team.balam.util.sqlite.connection.vo.QueryVo;

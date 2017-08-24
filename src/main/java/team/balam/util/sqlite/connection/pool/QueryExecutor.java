@@ -24,12 +24,12 @@ public class QueryExecutor implements Runnable
 			case SELECT :
 				DAO.select(this.dbCon, this.queryVo);
 				break;
-				
+
 			case INSERT :
 			case EXECUTE :
 				DAO.insertOrExecute(this.dbCon, this.queryVo);
 				break;
-				
+
 			case UPDATE :
 			case DELETE :
 				DAO.updateOrDelete(this.dbCon, this.queryVo);

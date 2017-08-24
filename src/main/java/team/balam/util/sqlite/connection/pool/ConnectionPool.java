@@ -1,8 +1,8 @@
 package team.balam.util.sqlite.connection.pool;
 
-import java.sql.SQLException;
-
 import team.balam.util.sqlite.connection.vo.QueryVo;
+
+import java.sql.SQLException;
 
 public interface ConnectionPool 
 {

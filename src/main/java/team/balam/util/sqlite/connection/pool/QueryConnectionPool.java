@@ -1,10 +1,10 @@
 package team.balam.util.sqlite.connection.pool;
 
+import team.balam.util.sqlite.connection.vo.QueryVo;
+
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.concurrent.*;
-
-import team.balam.util.sqlite.connection.vo.QueryVo;
 
 public class QueryConnectionPool implements ConnectionPool
 {

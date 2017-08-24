@@ -13,7 +13,7 @@ DatabaseLoader.load("Test1", "./test2.db");
 ### QueryVO
 QueryVO is interface for execute query.
 ```java
-team.balam.util.sqlite.connection.vo.QueryVo insertVo = QueryVoFactory.create(QueryVo.Type.INSERT);
+team.balam.util.sqlite.QueryVo insertVo = QueryVoFactory.create(QueryVo.Type.INSERT);
 ```
 ```java
 QueryVO selectVo = QueryVoFactory.create(QueryVo.Type.SELECT);
@@ -44,7 +44,7 @@ PoolManager.executeQuery(dbName, queryVo);
 #### Get query result
 Result object is query result interface. QueryVO has result object and result object can check success.
 ```java
-team.balam.util.sqlite.connection.vo.Result result = select.getResult();
+team.balam.util.sqlite.Result result = select.getResult();
 
 if(result.isSuccess())
 {
@@ -85,7 +85,7 @@ String errorMsg = result.getErrorMessage();
 Exception excep = result.getException();
 ```
 
-#### team.balam.util.sqlite.connection.vo.Result object must call close()
+#### team.balam.util.sqlite.Result object must call close()
 ```java
 result.close();
 ```
