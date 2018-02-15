@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>team.balam</groupId>
+  <artifactId>SQLite-Helper</artifactId>
+  <version>0.2.0-SNAPSHOT</version>
+  <versioning>
+    <snapshot>
+      <timestamp>20180215.030611</timestamp>
+      <buildNumber>2</buildNumber>
+    </snapshot>
+    <lastUpdated>20180215030611</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>0.2.0-20180215.030611-2</value>
+        <updated>20180215030611</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>0.2.0-20180215.030611-2</value>
+        <updated>20180215030611</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+</metadata>
