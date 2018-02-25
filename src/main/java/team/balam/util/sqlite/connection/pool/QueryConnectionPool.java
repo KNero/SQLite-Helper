@@ -23,7 +23,12 @@ public class QueryConnectionPool implements ConnectionPool
 	{
 		return this.pool.containsKey(_name);
 	}
-	
+
+	@Override
+	public boolean isEmpty() {
+		return this.pool.isEmpty();
+	}
+
 	@Override
 	public synchronized void add(String _name, java.sql.Connection _con) throws AlreadyExistsConnectionException
 	{
@@ -36,42 +41,27 @@ public class QueryConnectionPool implements ConnectionPool
 	}
 	
 	@Override
-	public void executeQuery(String _name, QueryVo _vo)
-	{
+	public void executeQuery(String _name, QueryVo _vo) {
 		java.sql.Connection con = this.pool.get(_name);
-		if(con == null)
-		{
+		if(con == null) {
 			throw new ConnectionNotFoundException( "[ " + _name + " ]" + " The connection does not exist." );
 		}
-		
-		synchronized(con)
-		{
-			this.workerPool.execute(new QueryExecutor(con, _vo));
-		}
+
+		this.workerPool.execute(new QueryExecutor(con, _vo));
 	}
 	
 	@Override
-	public void destroy()
-	{
+	public void destroy() throws SQLException {
 		this.workerPool.shutdown();
 		
-		try
-		{
+		try {
 			this.workerPool.awaitTermination(1, TimeUnit.MINUTES);
-		}
-		catch(InterruptedException e)
-		{
+		} catch(InterruptedException e) {
+			//ignore
 		}
 		
-		for(java.sql.Connection con : this.pool.values())
-		{
-			try
-			{
-				con.close();
-			}
-			catch(SQLException e)
-			{
-			}
+		for(java.sql.Connection con : this.pool.values()) {
+			con.close();
 		}
 		
 		this.pool = new ConcurrentHashMap<String, java.sql.Connection>();

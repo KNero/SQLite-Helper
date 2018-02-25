@@ -13,6 +13,8 @@ public interface ConnectionPool
 	void executeQuery(String _name, QueryVo _queryVo);
 
 	void destroy() throws SQLException;
+
+	boolean isEmpty();
 	
 	int getActiveQuerySize();
 	

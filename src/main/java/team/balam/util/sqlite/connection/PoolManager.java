@@ -26,8 +26,11 @@ public class PoolManager
 		return connectionPool.contains(_dbName);
 	}
 	
-	static void addConnection(String _dbName, java.sql.Connection _con) throws AlreadyExistsConnectionException
-	{
+	static void addConnection(String _dbName, java.sql.Connection _con) throws AlreadyExistsConnectionException {
+		if (connectionPool.isEmpty()) {
+			defaultDb = _dbName;
+		}
+
 		connectionPool.add(_dbName, _con);
 	}
 
