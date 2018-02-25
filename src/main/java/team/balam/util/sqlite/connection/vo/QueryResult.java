@@ -3,7 +3,6 @@ package team.balam.util.sqlite.connection.vo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 import java.util.Map;
 
@@ -15,10 +14,10 @@ public class QueryResult implements Result
 	private boolean isSuccess;
 	private Exception exception;
 	
-	public void setSelectResult(Statement _statement, PreparedStatement _preparedStatement, ResultSet _resultSet)
+	public void setSelectResult(PreparedStatement _preparedStatement, ResultSet _resultSet)
 	{
 		this.selectResult = new SelectResultInfo();
-		this.selectResult.setInfo(_statement, _preparedStatement, _resultSet);
+		this.selectResult.setInfo(_preparedStatement, _resultSet);
 	}
 	
 	@Override
@@ -77,11 +76,7 @@ public class QueryResult implements Result
 	
 	@Override
 	public boolean isClosed() throws SQLException {
-		if (this.selectResult != null) {
-			return this.selectResult.isClosed();
-		}
-		
-		return true;
+		return this.selectResult.isClosed();
 	}
 	
 }

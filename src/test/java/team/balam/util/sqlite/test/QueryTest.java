@@ -1,6 +1,7 @@
 package team.balam.util.sqlite.test;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import team.balam.util.sqlite.connection.DatabaseLoader;
 import team.balam.util.sqlite.connection.PoolManager;
@@ -17,7 +18,8 @@ public class QueryTest
 	private static final String DB_NAME = "./db/test.db";
 	private static final String DROP_TABLE_QUERY = "DROP TABLE IF EXISTS TEST";
 	private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS TEST(DATA1 TEXT, DATA2 NUMERIC, DATA3 INTEGER, PRIMARY KEY (DATA1, DATA2))";
-	
+
+	@BeforeClass
 	public static void initTest() throws Exception
 	{
 		try
@@ -26,7 +28,7 @@ public class QueryTest
 		}
 		catch(Exception e)
 		{
-			
+			e.printStackTrace();
 		}
 		
 		QueryVo dropVo = QueryVoFactory.create(Type.EXECUTE);
@@ -51,43 +53,31 @@ public class QueryTest
 	}
 	
 	@Test
-	public void testSelect() throws Exception
-	{
+	public void testSelect() throws Exception {
 		Result selectResult = null;
 		
-		try
-		{
-			initTest();
-			
-			QueryVo insertVo = QueryVoFactory.create(Type.INSERT);
+		try {
+			QueryVo insertVo = QueryVoFactory.create(Type.INSERT, 5000);
 			insertVo.setQuery("INSERT INTO TEST VALUES('test1', 123, 456)");
 			
 			PoolManager.executeQuery(DB_NAME, insertVo);
-			
-			if(! insertVo.getResult().isSuccess())
-			{
-				throw insertVo.getResult().getException();
-			}
-			
+			insertVo.getResult();
+
 			QueryVo selectVo = QueryVoFactory.create(Type.SELECT);
 			selectVo.setQuery("SELECT * FROM TEST WHERE DATA1='test1'");
 			
 			PoolManager.executeQuery(DB_NAME, selectVo);
 			
 			selectResult = selectVo.getResult();
-			if(selectResult.isSuccess())
-			{
+			if(selectResult.isSuccess()) {
 				Map<String, Object> row = selectResult.getSelectResult().get(0);
 				
 				Assert.assertEquals("test1", row.get("data1"));
 				Assert.assertEquals(123, row.get("data2"));
 				Assert.assertEquals(456, row.get("data3"));
 			}
-		}
-		finally
-		{
-			if(selectResult != null)
-			{
+		} finally {
+			if(selectResult != null) {
 				selectResult.close();				
 			}
 		}
@@ -100,20 +90,14 @@ public class QueryTest
 		
 		try
 		{
-			initTest();
-			
 			QueryVo insertVo = QueryVoFactory.create(Type.INSERT);
-			insertVo.setQuery("INSERT INTO TEST VALUES('test1', 123, 456)");
+			insertVo.setQuery("INSERT INTO TEST VALUES('test2', 123, 456)");
 			
 			PoolManager.executeQuery(DB_NAME, insertVo);
-			
-			if(! insertVo.getResult().isSuccess())
-			{
-				throw insertVo.getResult().getException();
-			}
+			insertVo.getResult();
 			
 			QueryVo updateVo = QueryVoFactory.create(Type.UPDATE);
-			updateVo.setQuery("UPDATE TEST SET DATA1='testtest', DATA2=1234, DATA3=9870 WHERE DATA1='test1'");
+			updateVo.setQuery("UPDATE TEST SET DATA1='testtest', DATA2=1234, DATA3=9870 WHERE DATA1='test2'");
 			
 			PoolManager.executeQuery(DB_NAME, updateVo);
 			
@@ -150,8 +134,6 @@ public class QueryTest
 		
 		try
 		{
-			initTest();
-			
 			QueryVo insertVo = QueryVoFactory.create(Type.INSERT);
 			insertVo.setQuery("INSERT INTO TEST VALUES('test1', 123, 456)");
 			
@@ -197,8 +179,6 @@ public class QueryTest
 	@Test
 	public void testSelectTableMeta() throws Exception
 	{
-		initTest();
-		
 		Result selectResult = null;
 		
 		try
@@ -237,8 +217,6 @@ public class QueryTest
 	@Test
 	public void testSelectTableIndex() throws Exception
 	{
-		initTest();
-		
 		Result selectResult = null;
 		
 		try
@@ -280,7 +258,7 @@ public class QueryTest
 					}
 					finally
 					{
-						if(selectResult != null)
+						if(selectResult2 != null)
 						{
 							selectResult2.close();				
 						}

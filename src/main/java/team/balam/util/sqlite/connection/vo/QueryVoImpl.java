@@ -1,9 +1,6 @@
 package team.balam.util.sqlite.connection.vo;
 
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 public class QueryVoImpl implements QueryVo
 {
@@ -12,16 +9,19 @@ public class QueryVoImpl implements QueryVo
 	private Object[] param;
 	private int queryTimeout;
 
-	private BlockingQueue<Result> resultQueue;
-	private Result result;
+	private volatile Result result;
 
 	QueryVoImpl(Type _mode) {
 		mode = _mode;
-		resultQueue = new LinkedBlockingQueue<Result>();
 	}
 
 	public void setQueryTimeout(int queryTimeout) {
 		this.queryTimeout = queryTimeout;
+	}
+
+	@Override
+	public int getQueryTimeout() {
+		return this.queryTimeout;
 	}
 
 	@Override
@@ -61,26 +61,30 @@ public class QueryVoImpl implements QueryVo
 	
 	@Override
 	public Result getResult() throws QueryExecuteException {
-		if (this.result == null) {
-			try {
-				this.result = resultQueue.poll(queryTimeout, TimeUnit.MILLISECONDS);
-			} catch (InterruptedException e) {
-			}
-		}
+		if (this.result != null) {
+			return this.result;
+		} else {
+			long start = System.currentTimeMillis();
+			int realQueryTimeout = this.queryTimeout > 0 ? this.queryTimeout : Integer.MAX_VALUE;
 
-		if (this.result == null) {
+			do {
+				if (this.result != null) {
+					if (this.result.getException() != null) {
+						ResultAutoCloser.getInstance().add(this);
+						throw new QueryExecuteException(this, this.result.getException());
+					}
+
+					return this.result;
+				}
+			} while(System.currentTimeMillis() - start < realQueryTimeout);
+
 			ResultAutoCloser.getInstance().add(this);
 			throw new QueryTimeoutException(this);
-		} else if (this.result.getException() != null) {
-			throw new QueryExecuteException(this, this.result.getException());
 		}
-
-		return this.result;
 	}
 
-	public void setResult( Result _result ) 
-	{
-		this.resultQueue.add( _result );
+	public void setResult(Result _result) {
+		this.result = _result;
 	}
 
 	@Override

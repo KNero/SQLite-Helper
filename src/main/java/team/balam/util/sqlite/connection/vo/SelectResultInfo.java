@@ -6,17 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class SelectResultInfo
-{
-	private Statement statement;
+class SelectResultInfo {
 	private PreparedStatement preparedStatement;
 	private ResultSet resultSet;
 	
 	private List<Map<String, Object>> resultList;
 	
-	public void setInfo(Statement _statement, PreparedStatement _preparedStatement, ResultSet _resultSet)
-	{
-		this.statement = _statement;
+	public void setInfo(PreparedStatement _preparedStatement, ResultSet _resultSet) {
 		this.preparedStatement = _preparedStatement;
 		this.resultSet = _resultSet;
 	}
@@ -54,9 +50,7 @@ class SelectResultInfo
 		return this.resultSet;
 	}
 
-	public void close() throws SQLException 
-	{
-		if(this.statement != null ) this.statement.close();
+	public void close() throws SQLException {
 		if(this.preparedStatement != null ) this.preparedStatement.close();
 		if(this.resultSet != null ) this.resultSet.close();
 	}

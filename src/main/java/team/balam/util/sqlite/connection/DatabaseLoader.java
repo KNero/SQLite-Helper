@@ -15,14 +15,14 @@ public class DatabaseLoader {
 		Connection dbCon = null;
 		Statement statement = null;
 
+		File file = new File(_path);
+		if (file.exists() && file.isDirectory()) {
+			throw new DatabaseLoadException("This is directory. " + file.getAbsolutePath());
+		}
+
 		try {
 			if (PoolManager.containsConnection(_name)) {
 				throw new AlreadyExistsConnectionException(_name);
-			}
-
-			File file = new File(_path);
-			if (file.exists() && file.isDirectory()) {
-				throw new DatabaseLoadException("This is not the type of file.");
 			}
 
 			Class.forName("org.sqlite.JDBC");
@@ -50,6 +50,7 @@ public class DatabaseLoader {
 				try {
 					statement.close();
 				} catch (SQLException e) {
+					//ignore
 				}
 			}
 		}
