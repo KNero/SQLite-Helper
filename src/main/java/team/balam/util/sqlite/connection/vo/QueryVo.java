@@ -10,6 +10,7 @@ public interface QueryVo
 	
 	Type getMode();
 	void setQueryTimeout(int queryTimeout);
+	int getQueryTimeout();
 	
 	String getQuery(); 
 	void setQuery(String _query);
