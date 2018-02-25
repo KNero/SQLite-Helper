@@ -7,7 +7,7 @@ import java.sql.Connection;
 
 public class QueryExecutor implements Runnable
 {
-	private Connection dbCon;
+	private final Connection dbCon;
 	private QueryVoImpl queryVo;
 	
 	QueryExecutor(Connection _con, QueryVo _vo)
@@ -17,23 +17,23 @@ public class QueryExecutor implements Runnable
 	}
 	
 	@Override
-	public void run()
-	{
-		switch(this.queryVo.getMode())
-		{
-			case SELECT :
-				DAO.select(this.dbCon, this.queryVo);
-				break;
+	public void run() {
+		synchronized (this.dbCon) {
+			switch(this.queryVo.getMode()) {
+				case SELECT :
+					DAO.select(this.dbCon, this.queryVo);
+					break;
 
-			case INSERT :
-			case EXECUTE :
-				DAO.insertOrExecute(this.dbCon, this.queryVo);
-				break;
+				case INSERT :
+				case EXECUTE :
+					DAO.insertOrExecute(this.dbCon, this.queryVo);
+					break;
 
-			case UPDATE :
-			case DELETE :
-				DAO.updateOrDelete(this.dbCon, this.queryVo);
-				break;
+				case UPDATE :
+				case DELETE :
+					DAO.updateOrDelete(this.dbCon, this.queryVo);
+					break;
+			}
 		}
 	}
 }
