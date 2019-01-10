@@ -30,7 +30,7 @@ repositories {
 ```
 ```gradle
 dependencies {
-    compile group: 'team.balam', name: 'exof', version: '1.4.3'
+    compile group: 'team.balam', name: 'SQLite-Helper', version: '0.2.0-SNAPSHOT'
 }
 ```
 
