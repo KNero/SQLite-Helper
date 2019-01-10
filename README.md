@@ -1,26 +1,32 @@
 # SQLite-Helper
 SQLite Multi Thread And Single Connection Pool
 
-### maven
+# Maven
 ```xml
-    <repositories>
-        <repository>
-            <id>KNero-mvn-repo</id>
-            <url>https://raw.github.com/KNero/SQLite-Helper/mvn-repo</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-        </repository>
-    </repositories>
+<repositories>
+    <repository>
+        <id>KNero-mvn-repo</id>
+        <url>https://github.com/KNero/repository/raw/master/maven</url>
+    </repository>
+</repositories>
 ```
 ```xml
-    <dependency>
-        <groupId>team.balam</groupId>
-        <artifactId>SQLite-Helper</artifactId>
-        <version>0.2.0-SNAPSHOT</version>
-    </dependency>
+<dependency>
+    <groupId>team.balam</groupId>
+    <artifactId>SQLite-Helper</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
+</dependency>
 ```
+# Gradle
+```gradle
+repositories {
+    maven {
+        mavenLocal()
+        maven {
+            url "https://github.com/KNero/repository/raw/master/maven"
+        }
+    }
+}
 
 ### Create or load DB File
 You can load many database.
