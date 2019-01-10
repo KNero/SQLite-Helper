@@ -27,6 +27,13 @@ repositories {
         }
     }
 }
+```
+```gradle
+dependencies {
+    compile group: 'team.balam', name: 'exof', version: '1.4.3'
+}
+```
+
 
 ### Create or load DB File
 You can load many database.
