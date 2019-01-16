@@ -21,30 +21,23 @@ public class PoolManager
 		defaultDb = _defaultDb;
 	}
 
-	public static boolean containsConnection(String _dbName)
-	{
-		return connectionPool.contains(_dbName);
-	}
-	
 	static void addConnection(String _dbName, java.sql.Connection _con) throws AlreadyExistsConnectionException {
-		if (connectionPool.isEmpty()) {
+		connectionPool.add(_dbName, _con);
+
+		if (defaultDb == null || defaultDb.isEmpty()) {
 			defaultDb = _dbName;
 		}
-
-		connectionPool.add(_dbName, _con);
 	}
 
 	public static void executeQuery(QueryVo _vo) {
 		executeQuery(defaultDb, _vo);
 	}
 
-	public static void executeQuery(String _dbName, QueryVo _vo)
-	{
+	public static void executeQuery(String _dbName, QueryVo _vo) {
 		connectionPool.executeQuery(_dbName, _vo);
 	}
 	
-	public static void destroyPool() throws SQLException
-	{
+	public static void destroyPool() throws SQLException {
 		connectionPool.destroy();
 		ResultAutoCloser.getInstance().stop();
 	}

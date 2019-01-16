@@ -1,6 +1,5 @@
 package team.balam.util.sqlite.connection;
 
-import team.balam.util.sqlite.connection.pool.AlreadyExistsConnectionException;
 import team.balam.util.sqlite.connection.vo.ResultAutoCloser;
 
 import java.io.File;
@@ -21,20 +20,15 @@ public class DatabaseLoader {
 		}
 
 		try {
-			if (PoolManager.containsConnection(_name)) {
-				throw new AlreadyExistsConnectionException(_name);
-			}
-
 			Class.forName("org.sqlite.JDBC");
-
 			dbCon = DriverManager.getConnection("jdbc:sqlite:" + _path);
+
+			PoolManager.addConnection(_name, dbCon);
 
 			if (_isWAL) {
 				statement = dbCon.createStatement();
 				statement.execute("PRAGMA journal_mode=WAL;");
 			}
-
-			PoolManager.addConnection(_name, dbCon);
 		} catch (Exception e) {
 			if (dbCon != null) {
 				try {

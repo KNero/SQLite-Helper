@@ -13,11 +13,14 @@ public interface QueryVo
 	int getQueryTimeout();
 	
 	String getQuery(); 
-	void setQuery(String _query);
+	void setQuery(String query);
 	
 	Object[] getParam();
-	void setParam(Object[] _param);
-	void setParam(List<Object[]> _param);
+	void setParam(Object... param);
+	void setParam(List<Object[]> param);
 	
 	Result getResult() throws QueryExecuteException;
+
+	void execute();
+	void execute(String dbName);
 }

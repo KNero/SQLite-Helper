@@ -1,9 +1,10 @@
 package team.balam.util.sqlite.connection.vo;
 
+import team.balam.util.sqlite.connection.PoolManager;
+
 import java.util.List;
 
-public class QueryVoImpl implements QueryVo
-{
+public class QueryVoImpl implements QueryVo {
 	private Type mode;
 	private String query;
 	private Object[] param;
@@ -54,7 +55,7 @@ public class QueryVoImpl implements QueryVo
 	}
 	
 	@Override
-	public void setParam(Object[] _param)
+	public void setParam(Object... _param)
 	{
 		this.param = _param;
 	}
@@ -100,5 +101,15 @@ public class QueryVoImpl implements QueryVo
 		}
 
 		return msg.toString();
+	}
+
+	@Override
+	public void execute() {
+		PoolManager.executeQuery(this);
+	}
+
+	@Override
+	public void execute(String dbName) {
+		PoolManager.executeQuery(dbName, this);
 	}
 }

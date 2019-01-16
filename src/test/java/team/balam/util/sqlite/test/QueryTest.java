@@ -13,8 +13,7 @@ import team.balam.util.sqlite.connection.vo.Result;
 import java.util.List;
 import java.util.Map;
 
-public class QueryTest
-{
+public class QueryTest {
 	private static final String DB_NAME = "./db/test.db";
 	private static final String DROP_TABLE_QUERY = "DROP TABLE IF EXISTS TEST";
 	private static final String CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS TEST(DATA1 TEXT, DATA2 NUMERIC, DATA3 INTEGER, PRIMARY KEY (DATA1, DATA2))";
