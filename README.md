@@ -5,7 +5,7 @@ SQLite Multi Thread And Single Connection Pool
 ```xml
 <repositories>
     <repository>
-        <id>KNero-mvn-repo</id>
+        <id>knero-mvn-repo</id>
         <url>https://github.com/KNero/repository/raw/master/maven</url>
     </repository>
 </repositories>
