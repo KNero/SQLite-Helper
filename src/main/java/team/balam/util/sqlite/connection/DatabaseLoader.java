@@ -1,7 +1,5 @@
 package team.balam.util.sqlite.connection;
 
-import team.balam.util.sqlite.connection.vo.ResultAutoCloser;
-
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +8,6 @@ import java.sql.Statement;
 
 public class DatabaseLoader {
 	synchronized public static void load(String _name, String _path, boolean _isWAL) throws DatabaseLoadException {
-		ResultAutoCloser.getInstance().start();
 		Connection dbCon = null;
 		Statement statement = null;
 

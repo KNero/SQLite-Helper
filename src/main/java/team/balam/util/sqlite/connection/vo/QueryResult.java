@@ -6,77 +6,75 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-public class QueryResult implements Result
-{
-	private SelectResultInfo selectResult;
-	private int count;
-	
-	private boolean isSuccess;
-	private Exception exception;
-	
-	public void setSelectResult(PreparedStatement _preparedStatement, ResultSet _resultSet)
-	{
-		this.selectResult = new SelectResultInfo();
-		this.selectResult.setInfo(_preparedStatement, _resultSet);
-	}
-	
-	@Override
-	public List<Map<String, Object>> getSelectResult() throws SQLException 
-	{
-		return this.selectResult.getResultList();
-	}
-	
-	@Override
-	public ResultSet getResultSet()
-	{
-		return this.selectResult.getResultSet();
-	}
-	
-	public void setResultCount( int _count )
-	{
-		count = _count;
-	}
+public class QueryResult implements Result {
+    private SelectResultInfo selectResult;
+    private int count;
 
-	@Override
-	public int getResultCount() 
-	{
-		return count;
-	}
-	
-	public void onSuccess()
-	{
-		isSuccess = true;
-	}
-	
-	@Override
-	public boolean isSuccess() 
-	{
-		return isSuccess;
-	}
-	
-	public void setException( Exception _exception ) 
-	{
-		exception = _exception;
-	}
+    private boolean isSuccess;
+    private Exception exception;
 
-	@Override
-	public Exception getException() 
-	{
-		return exception;
-	}
+    public void setSelectResult(PreparedStatement _preparedStatement, ResultSet _resultSet) {
+        this.selectResult = new SelectResultInfo();
+        this.selectResult.setInfo(_preparedStatement, _resultSet);
+    }
 
-	@Override
-	public void close() throws SQLException 
-	{
-		if( this.selectResult != null )
-		{
-			this.selectResult.close();
-		}
-	}
-	
-	@Override
-	public boolean isClosed() throws SQLException {
-		return this.selectResult.isClosed();
-	}
-	
+    @Override
+    public List<Map<String, Object>> getSelectResult() throws SQLException {
+        return this.selectResult.getResultList();
+    }
+
+    @Override
+    public ResultSet getResultSet() {
+        return this.selectResult.getResultSet();
+    }
+
+    public void setResultCount(int _count) {
+        count = _count;
+    }
+
+    @Override
+    public int getResultCount() {
+        return count;
+    }
+
+    public void onSuccess() {
+        isSuccess = true;
+    }
+
+    @Override
+    public boolean isSuccess() {
+        return isSuccess;
+    }
+
+    public void setException(Exception _exception) {
+        exception = _exception;
+    }
+
+    @Override
+    public Exception getException() {
+        return exception;
+    }
+
+    @Override
+    public Map<String, Object> getSelectOneResult() throws SQLException {
+        List<Map<String, Object>> result = selectResult.getResultList();
+        if (!result.isEmpty()) {
+            return result.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void close() throws SQLException {
+        if (this.selectResult != null) {
+            this.selectResult.close();
+        }
+    }
+
+    @Override
+    public boolean isClosed() throws SQLException {
+        return this.selectResult.isClosed();
+    }
+
 }

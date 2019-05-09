@@ -8,6 +8,8 @@ import java.util.Map;
 public interface Result
 {
 	List<Map<String, Object>> getSelectResult() throws SQLException;
+	Map<String, Object> getSelectOneResult() throws SQLException;
+
 	ResultSet getResultSet();
 	int getResultCount();
 	

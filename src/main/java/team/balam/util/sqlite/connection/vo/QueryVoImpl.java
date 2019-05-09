@@ -2,6 +2,7 @@ package team.balam.util.sqlite.connection.vo;
 
 import team.balam.util.sqlite.connection.PoolManager;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class QueryVoImpl implements QueryVo {
@@ -71,7 +72,7 @@ public class QueryVoImpl implements QueryVo {
 			do {
 				if (this.result != null) {
 					if (this.result.getException() != null) {
-						ResultAutoCloser.getInstance().add(this);
+						closeResult();
 						throw new QueryExecuteException(this, this.result.getException());
 					}
 
@@ -79,8 +80,16 @@ public class QueryVoImpl implements QueryVo {
 				}
 			} while(System.currentTimeMillis() - start < realQueryTimeout);
 
-			ResultAutoCloser.getInstance().add(this);
+			closeResult();
 			throw new QueryTimeoutException(this);
+		}
+	}
+
+	private void closeResult() {
+		try {
+			result.close();
+		} catch (SQLException e) {
+			// ignore
 		}
 	}
 

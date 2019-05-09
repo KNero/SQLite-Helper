@@ -4,11 +4,10 @@ import team.balam.util.sqlite.connection.pool.AlreadyExistsConnectionException;
 import team.balam.util.sqlite.connection.pool.ConnectionPool;
 import team.balam.util.sqlite.connection.pool.QueryConnectionPool;
 import team.balam.util.sqlite.connection.vo.QueryVo;
-import team.balam.util.sqlite.connection.vo.ResultAutoCloser;
 
 import java.sql.SQLException;
 
-public class PoolManager 
+public class PoolManager
 {
 	private static ConnectionPool connectionPool= new QueryConnectionPool();
 	private static String defaultDb;
@@ -39,7 +38,6 @@ public class PoolManager
 	
 	public static void destroyPool() throws SQLException {
 		connectionPool.destroy();
-		ResultAutoCloser.getInstance().stop();
 	}
 	
 	public static int getActiveQuerySize()
