@@ -14,7 +14,7 @@ SQLite Multi Thread And Single Connection Pool
 <dependency>
     <groupId>team.balam</groupId>
     <artifactId>SQLite-Helper</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.1-SNAPSHOT</version>
 </dependency>
 ```
 # Gradle
@@ -30,7 +30,7 @@ repositories {
 ```
 ```gradle
 dependencies {
-    compile group: 'team.balam', name: 'SQLite-Helper', version: '0.2.0-SNAPSHOT'
+    compile group: 'team.balam', name: 'SQLite-Helper', version: '0.2.1-SNAPSHOT'
 }
 ```
 
